@@ -86,9 +86,6 @@ class Sociality {
         $this->plugin_version = $data['Version'];
         $this->plugin_slug = plugin_basename(__FILE__, '.php');
         $this->plugin_name_sanitized = basename(__FILE__, '.php');
-
-        // init updater
-        $this->updater();
     }
 
     public function enqueue_assets() {
@@ -132,7 +129,6 @@ class Sociality {
     // include
     private function include_dependencies () {
         require_once($this->plugin_path . 'class-settings.php');
-        require_once($this->plugin_path . 'class-updater.php');
         require_once($this->plugin_path . 'class-author-bio.php');
         require_once($this->plugin_path . 'class-likes.php');
         require_once($this->plugin_path . 'class-sharing.php');
@@ -142,9 +138,6 @@ class Sociality {
     /**
      * Additional Classes
      */
-    public function updater () {
-        return Sociality_Updater::instance();
-    }
     public function settings () {
         return Sociality_Settings::instance();
     }
