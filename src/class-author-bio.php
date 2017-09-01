@@ -119,18 +119,20 @@ if (!class_exists( 'Sociality_Author_Bio' )) :
                         <th></th>
 
                         <td class="sociality-icon-picker">
-                            <?php foreach($user_social_links as $k => $val) { ?>
-                                <div class="input-group">
-                                    <span class="btn btn-default sociality-icp iconpicker-component input-group-btn">
-                                        <i class="<?php echo esc_attr($val['icon'] ? $val['icon'] : ''); ?>"><?php echo ($val['icon'] ? '' : 'Icon'); ?></i>
-                                        <input type="hidden" class="iconpicker-input" name="user_sociality_links[<?php echo esc_attr($k); ?>][icon]" value="<?php echo esc_attr($val['icon'] ? $val['icon'] : ''); ?>">
-                                    </span>
-                                    <input class="form-control" value="<?php echo esc_attr(isset($val['url']) ? $val['url'] : ''); ?>" type="url" placeholder="https://..." name="user_sociality_links[<?php echo esc_attr($k); ?>][url]">
-                                    <span class="btn btn-danger input-group-btn sociality-icon-picker-remove">
-                                        <i class="dashicons dashicons-no-alt"></i>
-                                    </span>
-                                </div>
-                            <?php } ?>
+                            <?php if (is_array($user_social_links)) : ?>
+                                <?php foreach($user_social_links as $k => $val) { ?>
+                                    <div class="input-group">
+                                        <span class="btn btn-default sociality-icp iconpicker-component input-group-btn">
+                                            <i class="<?php echo esc_attr($val['icon'] ? $val['icon'] : ''); ?>"><?php echo ($val['icon'] ? '' : 'Icon'); ?></i>
+                                            <input type="hidden" class="iconpicker-input" name="user_sociality_links[<?php echo esc_attr($k); ?>][icon]" value="<?php echo esc_attr($val['icon'] ? $val['icon'] : ''); ?>">
+                                        </span>
+                                        <input class="form-control" value="<?php echo esc_attr(isset($val['url']) ? $val['url'] : ''); ?>" type="url" placeholder="https://..." name="user_sociality_links[<?php echo esc_attr($k); ?>][url]">
+                                        <span class="btn btn-danger input-group-btn sociality-icon-picker-remove">
+                                            <i class="dashicons dashicons-no-alt"></i>
+                                        </span>
+                                    </div>
+                                <?php } ?>
+                            <?php endif; ?>
 
                             <br>
                             <span class="btn btn-primary sociality-icon-picker-add">
