@@ -1,0 +1,90 @@
+/*
+ * Author Bio
+ */
+.sociality-author-bio {
+    padding: 30px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    background-color: #f3f3f3;
+}
+.sociality-author-bio-avatar {
+    float: left;
+}
+.sociality-author-bio-avatar img {
+    width: 80px;
+    height: auto;
+}
+.sociality-author-bio-name,
+.sociality-author-bio-description,
+.sociality-author-bio-links {
+    margin-left: 110px;
+}
+.sociality-author-bio-name,
+.sociality-author-bio-description {
+    margin-bottom: 20px;
+}
+.sociality-author-bio-name a,
+.sociality-author-bio-links a {
+    color: inherit;
+}
+.sociality-author-bio-name a:hover,
+.sociality-author-bio-links a:hover {
+    color: inherit;
+    opacity: 0.8;
+}
+.sociality-author-bio-links a {
+    float: left;
+    font-size: 17px;
+}
+.sociality-author-bio-links a,
+.sociality-author-bio-links a:hover,
+.sociality-author-bio-links a:focus {
+    text-decoration: none;
+}
+.sociality-author-bio-links a + a {
+    margin-left: 12px;
+}
+.sociality-author-bio-links:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+/*
+ * Likes
+ */
+[data-socialize-like="heart"] {
+    cursor: pointer;
+}
+[data-socialize-like="heart"][data-post-liked="true"] .sociality-like-icon,
+[data-socialize-like="heart"][data-post-liked="1"] .sociality-like-icon,
+[data-socialize-like="heart"][data-post-liked="false"] .sociality-liked-icon,
+[data-socialize-like="heart"][data-post-liked="0"] .sociality-liked-icon {
+    display: none;
+}
+
+[data-socialize-like="thumbs"] > span {
+    display: inline-block;
+}
+[data-socialize-like="thumbs"] .sociality-like-icon,
+[data-socialize-like="thumbs"] .sociality-dislike-icon {
+    cursor: pointer;
+    padding: 5px;
+    display: inline-block;
+    vertical-align: middle;
+}
+[data-socialize-like="thumbs"] .sociality-like-icon,
+[data-socialize-like="thumbs"] .sociality-dislike-icon {
+    opacity: 0.8;
+    transition: .3s opacity;
+}
+[data-socialize-like="thumbs"][data-post-liked="true"] .sociality-like-icon,
+[data-socialize-like="thumbs"][data-post-liked="1"] .sociality-like-icon,
+[data-socialize-like="thumbs"][data-post-liked="-1"] .sociality-dislike-icon {
+    opacity: 1;
+}
+[data-socialize-like="thumbs"][data-post-liked="true"] .sociality-dislike-icon,
+[data-socialize-like="thumbs"][data-post-liked="1"] .sociality-dislike-icon,
+[data-socialize-like="thumbs"][data-post-liked="-1"] .sociality-like-icon {
+    opacity: 0.4;
+}
