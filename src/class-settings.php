@@ -231,6 +231,13 @@ if (!class_exists( 'Sociality_Settings' )) :
                             'pinterest'   => 'pinterest'
                         )
                     ),
+                    array(
+                        'name'    => 'show_counters',
+                        'label'   => __( 'Show Sharing Counters', NK_SOCIALITY_DOMAIN ),
+                        'desc'    => __( 'Yes', NK_SOCIALITY_DOMAIN ),
+                        'type'    => 'checkbox',
+                        'default' => 'on',
+                    ),
                 ),
                 'sociality_author_bio' => array(
                     array(

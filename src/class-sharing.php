@@ -26,11 +26,11 @@ if (!class_exists( 'Sociality_Sharing' )) :
         }
 
         private function init_actions () {
-            // add action to show author bio template
+            // add action to show sharing buttons template
             add_action('sociality-sharing', array($this, 'custom_action'));
         }
 
-        // bio custom action
+        // sharing buttons custom action
         public function custom_action () {
             $place = sociality()->settings()->get_option('place','sociality_author_bio',null);
             if (is_array($place) && isset($place['custom_action']) || $place === null) {
@@ -39,7 +39,7 @@ if (!class_exists( 'Sociality_Sharing' )) :
         }
 
         /**
-         * Print Buttons
+         * Print Sharing Buttons
          */
         public function print_sharing () {
             ob_start();

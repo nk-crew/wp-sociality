@@ -95,8 +95,8 @@ class Sociality {
         wp_enqueue_style('socicon', plugins_url( 'assets/socicon/style.css', __FILE__ ), false);
         wp_enqueue_style('sociality', plugins_url( 'assets/sociality.css', __FILE__ ), false);
 
-        wp_enqueue_script('social-likes', plugins_url( 'assets/social-likes/social-likes.min.js', __FILE__ ), array('jquery'), '', true);
         wp_enqueue_script('sociality', plugins_url( 'assets/sociality.js', __FILE__ ), array('jquery'), '', true);
+        wp_enqueue_script('sociality-share', plugins_url( 'assets/sociality-share/sociality-share.js', __FILE__ ), array('jquery'), '', true);
 
         wp_localize_script('sociality', 'socialityData', array(
             'ajax_url' => admin_url( 'admin-ajax.php' ),
