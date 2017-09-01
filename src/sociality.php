@@ -1,8 +1,8 @@
 <?php
 /**
  * Plugin Name:  Sociality
- * Description:  Social links for posts authors
- * Version:      1.0.2
+ * Description:  Social features for the theme authors
+ * Version:      1.1.0
  * Author:       nK
  * Author URI:   https://nkdev.info
  * License:      GPLv2 or later
