@@ -3,7 +3,7 @@ Contributors: nko
 Tags: social, share, post author block
 Requires at least: 4.0.0
 Tested up to: 4.8
-Stable tag: 1.0
+Stable tag: 1.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -32,6 +32,9 @@ The manual installation method involves downloading our Sociality plugin and upl
 
 
 == Changelog ==
+
+= 1.1.1 =
+* fixed social sharing buttons when disabled author block
 
 = 1.1.0 =
 * changed social-likes plugin and template
