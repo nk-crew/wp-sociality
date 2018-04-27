@@ -32,10 +32,7 @@ if (!class_exists( 'Sociality_Sharing' )) :
 
         // sharing buttons custom action
         public function custom_action () {
-            $place = sociality()->settings()->get_option('place','sociality_author_bio',null);
-            if (is_array($place) && isset($place['custom_action']) || $place === null) {
-                echo $this->print_sharing();
-            }
+	        echo $this->print_sharing();
         }
 
         /**
