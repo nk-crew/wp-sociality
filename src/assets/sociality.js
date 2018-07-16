@@ -3,7 +3,7 @@
     var $body = $('body');
 
     // heart click
-    $body.on('click', '[data-socialize-like="heart"]:not(.busy)', function (e) {
+    $body.on('click', '[data-sociality-like="heart"]:not(.busy)', function (e) {
         e.preventDefault();
         e.stopPropagation();
 
@@ -39,7 +39,7 @@
         e.stopPropagation();
 
         var $this = $(this);
-        var $parent = $this.closest('[data-socialize-like="thumbs"]:not(.busy)');
+        var $parent = $this.closest('[data-sociality-like="thumbs"]:not(.busy)');
 
         if (!$parent.length) {
             return;

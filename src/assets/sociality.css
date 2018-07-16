@@ -53,38 +53,38 @@
 /*
  * Likes
  */
-[data-socialize-like="heart"] {
+[data-sociality-like="heart"] {
     cursor: pointer;
 }
-[data-socialize-like="heart"][data-post-liked="true"] .sociality-like-icon,
-[data-socialize-like="heart"][data-post-liked="1"] .sociality-like-icon,
-[data-socialize-like="heart"][data-post-liked="false"] .sociality-liked-icon,
-[data-socialize-like="heart"][data-post-liked="0"] .sociality-liked-icon {
+[data-sociality-like="heart"][data-post-liked="true"] .sociality-like-icon,
+[data-sociality-like="heart"][data-post-liked="1"] .sociality-like-icon,
+[data-sociality-like="heart"][data-post-liked="false"] .sociality-liked-icon,
+[data-sociality-like="heart"][data-post-liked="0"] .sociality-liked-icon {
     display: none;
 }
 
-[data-socialize-like="thumbs"] > span {
+[data-sociality-like="thumbs"] > span {
     display: inline-block;
 }
-[data-socialize-like="thumbs"] .sociality-like-icon,
-[data-socialize-like="thumbs"] .sociality-dislike-icon {
+[data-sociality-like="thumbs"] .sociality-like-icon,
+[data-sociality-like="thumbs"] .sociality-dislike-icon {
     cursor: pointer;
     padding: 5px;
     display: inline-block;
     vertical-align: middle;
 }
-[data-socialize-like="thumbs"] .sociality-like-icon,
-[data-socialize-like="thumbs"] .sociality-dislike-icon {
+[data-sociality-like="thumbs"] .sociality-like-icon,
+[data-sociality-like="thumbs"] .sociality-dislike-icon {
     opacity: 0.8;
     transition: .3s opacity;
 }
-[data-socialize-like="thumbs"][data-post-liked="true"] .sociality-like-icon,
-[data-socialize-like="thumbs"][data-post-liked="1"] .sociality-like-icon,
-[data-socialize-like="thumbs"][data-post-liked="-1"] .sociality-dislike-icon {
+[data-sociality-like="thumbs"][data-post-liked="true"] .sociality-like-icon,
+[data-sociality-like="thumbs"][data-post-liked="1"] .sociality-like-icon,
+[data-sociality-like="thumbs"][data-post-liked="-1"] .sociality-dislike-icon {
     opacity: 1;
 }
-[data-socialize-like="thumbs"][data-post-liked="true"] .sociality-dislike-icon,
-[data-socialize-like="thumbs"][data-post-liked="1"] .sociality-dislike-icon,
-[data-socialize-like="thumbs"][data-post-liked="-1"] .sociality-like-icon {
+[data-sociality-like="thumbs"][data-post-liked="true"] .sociality-dislike-icon,
+[data-sociality-like="thumbs"][data-post-liked="1"] .sociality-dislike-icon,
+[data-sociality-like="thumbs"][data-post-liked="-1"] .sociality-like-icon {
     opacity: 0.4;
 }

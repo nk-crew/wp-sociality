@@ -90,7 +90,7 @@ if (!class_exists( 'Sociality_Likes' )) :
             }
 
             $result .= '<span
-                    data-socialize-like="' . esc_attr($attributes['like_type']) . '"
+                    data-sociality-like="' . esc_attr($attributes['like_type']) . '"
                     data-post-id="' . esc_attr($attributes['post_id']) . '"
                     data-post-type="' . esc_attr($attributes['post_type']) . '"
                     data-post-likes-count="' . esc_attr($attributes['likes_count']) . '"
