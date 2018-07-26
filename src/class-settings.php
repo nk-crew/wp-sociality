@@ -208,11 +208,18 @@ if (!class_exists( 'Sociality_Settings' )) :
                     ),
                 ),
                 'sociality_sharing' => array(
-                    array(
-                        'name'    => 'info',
-                        'desc'    => __( 'To place sharing buttons on your page, use action <code>do_action(\'sociality-sharing\');</code>', NK_SOCIALITY_DOMAIN ),
-                        'type'    => 'html',
-                    ),
+	                array(
+		                'name'    => 'place',
+		                'label'   => __( 'Place', NK_SOCIALITY_DOMAIN ),
+		                'desc'    => __( 'If you need to place sharing buttons in custom place, call <code>do_action(\'sociality-sharing\');</code> in your plugin or theme code. Also available shortcode <code>[sociality_sharing]</code>', NK_SOCIALITY_DOMAIN ),
+		                'type'    => 'multicheck',
+		                'options' => array(
+			                'after_content'  => 'After Content',
+			                'before_content' => 'Before Content',
+			                'custom_action'  => 'Custom Action \'sociality-sharing\''
+		                ),
+		                'default' => array('custom_action' => 'custom_action')
+	                ),
                     array(
                         'name'    => 'socials',
                         'label'   => __( 'Buttons', NK_SOCIALITY_DOMAIN ),
