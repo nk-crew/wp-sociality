@@ -2,7 +2,7 @@
 /**
  * Plugin Name:  Sociality
  * Description:  Social features for the theme authors
- * Version:      1.1.4
+ * Version:      1.1.5
  * Author:       nK
  * Author URI:   https://nkdev.info
  * License:      GPLv2 or later
