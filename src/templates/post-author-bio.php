@@ -48,7 +48,7 @@
             ?> <div class="sociality-author-bio-links"> <?php
             foreach($social_links as $social_item) {
                 ?>
-                <a href="<?php echo esc_url($social_item['url']); ?>"><i class="<?php echo khaki_sanitize_class($social_item['icon']); ?>"></i></a>
+                <a href="<?php echo esc_url($social_item['url']); ?>"><i class="<?php echo esc_attr($social_item['icon']); ?>"></i></a>
                 <?php
             }
             ?> </div> <?php
