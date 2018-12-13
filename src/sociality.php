@@ -123,7 +123,11 @@ class Sociality {
         // Allow 3rd party plugin filter template file from their plugin.
         $template = apply_filters('sociality_include_template', $template, $template_name, $args);
 
+        do_action('sociality_before_include_template', $template, $template_name, $args);
+
         include $template;
+
+        do_action('sociality_after_include_template', $template, $template_name, $args);
     }
 
     // include
