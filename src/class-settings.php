@@ -227,14 +227,12 @@ if (!class_exists( 'Sociality_Settings' )) :
                         'options' => array(
                             'facebook'    => 'Facebook',
                             'twitter'     => 'Twitter',
-                            'google_plus' => 'Google Plus',
                             'pinterest'   => 'Pinterest',
                             'vkontakte'   => 'VK'
                         ),
                         'default' => array(
                             'facebook'    => 'facebook',
                             'twitter'     => 'twitter',
-                            'google_plus' => 'google_plus',
                             'pinterest'   => 'pinterest'
                         )
                     ),
