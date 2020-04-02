@@ -142,6 +142,7 @@ if ( ! class_exists( 'Sociality_Settings_API' ) ) :
                         'min'               => isset( $option['min'] ) ? $option['min'] : '',
                         'max'               => isset( $option['max'] ) ? $option['max'] : '',
                         'step'              => isset( $option['step'] ) ? $option['step'] : '',
+                        'sort'              => isset( $option['sort'] ) ? $option['sort'] : '',
                     );
 
                     add_settings_field( "{$section}[{$name}]", $label, $callback, $section, $section, $args );
@@ -242,10 +243,34 @@ if ( ! class_exists( 'Sociality_Settings_API' ) ) :
          */
         function callback_multicheck( $args ) {
 
-            $value = $this->get_option( $args['id'], $args['section'], $args['std'] );
-            $html  = '<fieldset>';
+            $value   = $this->get_option( $args['id'], $args['section'], $args['std'] );
+            $options = $args['options'];
+
+            // Resort options - checked first.
+            if ( $args['sort'] ) {
+                $new_options = array();
+
+                if ( ! empty( $value ) ) {
+                    foreach ( $value as $name ) {
+                        if ( isset( $options[ $name ] ) ) {
+                            $new_options[ $name ] = $options[ $name ];
+                        }
+                    }
+                }
+
+                foreach ( $options as $key => $label ) {
+                    if ( ! isset( $new_options[ $key ] ) ) {
+                        $new_options[ $key ] = $label;
+                    }
+                }
+
+                $options = $new_options;
+            }
+
+            $html  = '<fieldset class="' . ( $args['sort'] ? 'sociality-sortable' : '' ) . '">';
             $html .= sprintf( '<input type="hidden" name="%1$s[%2$s]" value="" />', $args['section'], $args['id'] );
-            foreach ( $args['options'] as $key => $label ) {
+
+            foreach ( $options as $key => $label ) {
                 $checked = isset( $value[ $key ] ) ? $value[ $key ] : '0';
                 $html   .= sprintf( '<label for="wpuf-%1$s[%2$s][%3$s]">', $args['section'], $args['id'], $key );
                 $html   .= sprintf( '<input type="checkbox" class="checkbox" id="wpuf-%1$s[%2$s][%3$s]" name="%1$s[%2$s][%3$s]" value="%3$s" %4$s />', $args['section'], $args['id'], $key, checked( $checked, $key, false ) );

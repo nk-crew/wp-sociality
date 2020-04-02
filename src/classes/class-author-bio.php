@@ -119,16 +119,16 @@ if ( ! class_exists( 'Sociality_Author_Bio' ) ) :
             // css.
             wp_enqueue_style( 'bootstrap-custom', sociality()->plugin_url . 'assets/vendor/bootstrap/css/bootstrap-custom.css', array(), '3.3.7' );
             wp_enqueue_style( 'fontawesome-iconpicker', sociality()->plugin_url . 'assets/vendor/iconpicker/css/fontawesome-iconpicker.min.css', array(), '3.2.0' );
-            wp_enqueue_style( 'sociality-admin', sociality()->plugin_url . 'assets/sociality-admin.min.css', array(), '@@plugin_version' );
+            wp_enqueue_style( 'sociality-admin-profile', sociality()->plugin_url . 'assets/sociality-admin-profile.min.css', array(), '@@plugin_version' );
 
             // js.
             wp_enqueue_script( 'bootstrap', sociality()->plugin_url . 'assets/vendor/bootstrap/js/bootstrap.min.js', array( 'jquery' ), '3.3.7', true );
             wp_enqueue_script( 'fontawesome-iconpicker', sociality()->plugin_url . 'assets/vendor/iconpicker/js/fontawesome-iconpicker.min.js', array( 'bootstrap' ), '3.2.0', true );
-            wp_enqueue_script( 'sociality-admin', sociality()->plugin_url . 'assets/sociality-admin.min.js', array( 'jquery' ), '@@plugin_version', true );
+            wp_enqueue_script( 'sociality-admin-profile', sociality()->plugin_url . 'assets/sociality-admin-profile.min.js', array( 'jquery' ), '@@plugin_version', true );
 
             wp_localize_script(
-                'sociality-admin',
-                'socialityAdmin',
+                'sociality-admin-profile',
+                'socialityAdminProfile',
                 array(
                     'icons' => sociality()->get_icons_array(),
                 )

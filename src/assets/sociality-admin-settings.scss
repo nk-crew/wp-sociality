@@ -1,0 +1,31 @@
+/**
+ * Settings.
+ */
+#sociality_sharing .socials fieldset {
+    br {
+        display: none;
+    }
+
+    label {
+        min-width: 200px;
+        padding: 10px 15px;
+        // stylelint-disable-next-line
+        margin-right: 20px !important;
+        background-color: #e5e5e5;
+        border: 1px solid #ccc;
+
+        svg {
+            display: inline-block;
+            width: 1.2em;
+            height: 1.2em;
+            margin-right: 10px;
+            margin-left: 5px;
+            vertical-align: -.25em;
+        }
+
+        input:not(:checked),
+        input:not(:checked) ~ * {
+            opacity: .5;
+        }
+    }
+}

@@ -305,7 +305,10 @@ if ( ! class_exists( 'Brand_SVG_Please' ) ) :
                 'fulcrum'                   => esc_html__( 'Fulcrum', 'bsp' ),
                 'galactic-republic'         => esc_html__( 'Galactic Republic', 'bsp' ),
                 'galactic-senate'           => esc_html__( 'Galactic Senate', 'bsp' ),
-                'get-pocket'                => esc_html__( 'Pocket', 'bsp' ),
+                'get-pocket'                => array(
+                    'name' => esc_html__( 'Pocket', 'bsp' ),
+                    'keys' => array( 'pocket' ),
+                ),
                 'gg'                        => esc_html__( 'GG', 'bsp' ),
                 'git'                       => esc_html__( 'Git', 'bsp' ),
                 'github'                    => esc_html__( 'GitHub', 'bsp' ),

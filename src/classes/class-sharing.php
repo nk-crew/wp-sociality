@@ -69,6 +69,24 @@ if ( ! class_exists( 'Sociality_Sharing' ) ) :
          * @return string
          */
         public function sharing_content( $content ) {
+            // Check AMP.
+            if ( function_exists( 'is_amp_endpoint' ) && is_amp_endpoint() ) {
+                return $content;
+            }
+
+            // Single posts only.
+            if ( ! is_singular( 'post' ) || ! is_single( get_the_ID() ) ) {
+                return $content;
+            }
+
+            // Skip sharing using global variable.
+            global $sociality_sharing_skip;
+            if ( $sociality_sharing_skip ) {
+                return $content;
+            }
+
+            $sociality_sharing_skip = true;
+
             $place = sociality()->settings()->get_option( 'place', 'sociality_sharing', null );
 
             if ( is_array( $place ) && isset( $place['before_content'] ) ) {
@@ -77,6 +95,8 @@ if ( ! class_exists( 'Sociality_Sharing' ) ) :
             if ( is_array( $place ) && isset( $place['after_content'] ) ) {
                 $content .= $this->print_sharing();
             }
+
+            $sociality_sharing_skip = false;
 
             return $content;
         }

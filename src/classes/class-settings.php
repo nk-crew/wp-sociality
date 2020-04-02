@@ -126,6 +126,41 @@ if ( ! class_exists( 'Sociality_Settings' ) ) :
          * @return array settings fields
          */
         public function get_settings_fields() {
+            $sharing_options = array();
+            $sharing_brands  = array(
+                'facebook',
+                'twitter',
+                'pinterest',
+                'vkontakte',
+                'odnoklassniki',
+                'linkedin',
+                'mix',
+                'tumblr',
+                'skype',
+                'buffer',
+                'pocket',
+                'xing',
+                'reddit',
+                'flipboard',
+                'delicious',
+                'amazon',
+                'digg',
+                'evernote',
+                'blogger',
+                'yahoo',
+                'whatsapp',
+                'viber',
+                'telegram',
+                'stumbleupon',
+                'diaspora',
+                'line',
+                'renren',
+            );
+
+            foreach ( $sharing_brands as $k ) {
+                $sharing_options[ $k ] = sociality()->svg_icons()->get( $k ) . '<span>' . sociality()->svg_icons()->get_name( $k ) . '</span>';
+            }
+
             $settings_fields = array(
                 'sociality_likes' => array(
                     array(
@@ -247,12 +282,8 @@ if ( ! class_exists( 'Sociality_Settings' ) ) :
                         'name'    => 'socials',
                         'label'   => __( 'Buttons', '@@text_domain' ),
                         'type'    => 'multicheck',
-                        'options' => array(
-                            'facebook'    => 'Facebook',
-                            'twitter'     => 'Twitter',
-                            'pinterest'   => 'Pinterest',
-                            'vkontakte'   => 'VK',
-                        ),
+                        'options' => $sharing_options,
+                        'sort'    => true,
                         'default' => array(
                             'facebook'    => 'facebook',
                             'twitter'     => 'twitter',
@@ -320,6 +351,8 @@ if ( ! class_exists( 'Sociality_Settings' ) ) :
          * @return void
          */
         public function print_settings_page() {
+            $this->admin_settings_enqueue_assets();
+
             echo '<div class="wrap">';
             echo '<h2>' . esc_html__( 'Sociality Settings', '@@text_domain' ) . '</h2>';
 
@@ -327,6 +360,17 @@ if ( ! class_exists( 'Sociality_Settings' ) ) :
             $this->settings_api->show_forms();
 
             echo '</div>';
+        }
+
+        /**
+         * Admin Enqueue Assets.
+         */
+        public function admin_settings_enqueue_assets() {
+            // css.
+            wp_enqueue_style( 'sociality-admin-settings', sociality()->plugin_url . 'assets/sociality-admin-settings.min.css', array(), '@@plugin_version' );
+
+            // js.
+            wp_enqueue_script( 'sociality-admin-settings', sociality()->plugin_url . 'assets/sociality-admin-settings.min.js', array( 'jquery', 'jquery-ui-sortable' ), '@@plugin_version', true );
         }
     }
 endif;

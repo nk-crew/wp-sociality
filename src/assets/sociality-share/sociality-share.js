@@ -23,13 +23,13 @@ const services = {
         convertNumber: function( data ) {
             return data.share.share_count;
         },
-        popupUrl: 'https://www.facebook.com/sharer/sharer.php?u={url}',
+        popupUrl: 'https://www.facebook.com/sharer.php?t={title}&u={url}',
         popupWidth: 600,
         popupHeight: 359,
     },
     twitter: {
         counters: false,
-        popupUrl: 'https://twitter.com/intent/tweet?url={url}&text={title}',
+        popupUrl: 'https://twitter.com/intent/tweet?text={text}&url={url}',
         popupWidth: 600,
         popupHeight: 250,
         click: function() {
@@ -40,21 +40,12 @@ const services = {
             return true;
         },
     },
-    google_plus: {
-        counterUrl: protocol + '//share.yandex.ru/gpp.xml?url={url}&callback=?',
-        convertNumber: function( number ) {
-            return parseInt( number.replace( /\D/g, '' ), 10 );
-        },
-        popupUrl: 'https://plus.google.com/share?url={url}',
-        popupWidth: 500,
-        popupHeight: 550,
-    },
     pinterest: {
         counterUrl: protocol + '//api.pinterest.com/v1/urls/count.json?url={url}&callback=?',
         convertNumber: function( data ) {
             return data.count;
         },
-        popupUrl: 'https://pinterest.com/pin/create/button/?url={url}&description={title}',
+        popupUrl: 'https://pinterest.com/pin/create/button/?url={url}&description={text}&media={media}',
         popupWidth: 740,
         popupHeight: 550,
     },
@@ -79,7 +70,7 @@ const services = {
             $.getScript( makeUrl( jsonUrl, { index: index } ) )
                 .fail( deferred.reject );
         },
-        popupUrl: 'https://vk.com/share.php?url={url}&title={title}',
+        popupUrl: 'https://vk.com/share.php?url={url}&title={title}&comment={excerpt}',
         popupWidth: 655,
         popupHeight: 450,
     },
@@ -102,7 +93,7 @@ const services = {
             $.getScript( makeUrl( jsonUrl, { index: index } ) )
                 .fail( deferred.reject );
         },
-        popupUrl: 'https://connect.ok.ru/dk?st.cmd=WidgetSharePreview&service=odnoklassniki&st.shareUrl={url}',
+        popupUrl: 'https://connect.ok.ru/offer?url={url}',
         popupWidth: 580,
         popupHeight: 336,
     },
@@ -118,6 +109,123 @@ const services = {
         popupUrl: 'https://connect.mail.ru/share?share_url={url}&title={title}',
         popupWidth: 492,
         popupHeight: 500,
+    },
+    linkedin: {
+        popupUrl: 'https://www.linkedin.com/shareArticle?title={title}&url={url}&summary={excerpt}&mini=true',
+        popupWidth: 500,
+        popupHeight: 550,
+    },
+    mix: {
+        popupUrl: 'https://mix.com/add?url={url}',
+        popupWidth: 500,
+        popupHeight: 550,
+    },
+    tumblr: {
+        popupUrl: 'https://www.tumblr.com/widgets/share/tool?canonicalUrl={url}&title={title}&caption={excerpt}&posttype=link',
+        popupWidth: 500,
+        popupHeight: 550,
+    },
+    skype: {
+        popupUrl: 'https://web.skype.com/share?url={url}&text={text}',
+        popupWidth: 500,
+        popupHeight: 550,
+    },
+    buffer: {
+        popupUrl: 'https://buffer.com/add?url={url}&text={text}',
+        popupWidth: 500,
+        popupHeight: 550,
+    },
+    pocket: {
+        popupUrl: 'https://getpocket.com/save?url={url}',
+        popupWidth: 500,
+        popupHeight: 550,
+    },
+    xing: {
+        popupUrl: 'https://www.xing.com/spi/shares/new?url={url}',
+        popupWidth: 500,
+        popupHeight: 550,
+    },
+    reddit: {
+        popupUrl: 'https://www.reddit.com/submit?title={title}&url={url}',
+        popupWidth: 500,
+        popupHeight: 550,
+    },
+    flipboard: {
+        popupUrl: 'https://share.flipboard.com/bookmarklet/popout?v=2&title={text}&url={url}',
+        popupWidth: 500,
+        popupHeight: 550,
+    },
+    delicious: {
+        popupUrl: 'https://del.icio.us/post?url={url}&title={title}',
+        popupWidth: 500,
+        popupHeight: 550,
+    },
+    amazon: {
+        popupUrl: 'https://www.amazon.com/gp/wishlist/static-add?u={url}&t={title}',
+        popupWidth: 500,
+        popupHeight: 550,
+    },
+    digg: {
+        popupUrl: 'https://digg.com/submit?title={text}&url={url}',
+        popupWidth: 500,
+        popupHeight: 550,
+    },
+    evernote: {
+        popupUrl: 'https://www.evernote.com/clip.action?url={url}&title={text}',
+        popupWidth: 500,
+        popupHeight: 550,
+    },
+    blogger: {
+        popupUrl: 'https://www.blogger.com/blog-this.g?u={url}&n={title}&t={excerpt}',
+        popupWidth: 500,
+        popupHeight: 550,
+    },
+    yahoo: {
+        popupUrl: 'https://compose.mail.yahoo.com/?body={text}%20{url}&subject={title}',
+        popupWidth: 500,
+        popupHeight: 550,
+    },
+    whatsapp: {
+        popupUrl: 'https://api.whatsapp.com/send?text={text}%20{url}',
+        popupWidth: 500,
+        popupHeight: 550,
+    },
+    viber: {
+        popupUrl: 'viber://forward?text={text}%20{url}',
+        popupWidth: 500,
+        popupHeight: 550,
+    },
+    telegram: {
+        popupUrl: 'https://t.me/share/url?url={url}&text={text}',
+        popupWidth: 500,
+        popupHeight: 550,
+    },
+    stumbleupon: {
+        popupUrl: 'http://www.stumbleupon.com/submit?url={url}',
+        popupWidth: 500,
+        popupHeight: 550,
+    },
+    diaspora: {
+        popupUrl: 'https://share.diasporafoundation.org/?title={title}&url={url}',
+        popupWidth: 500,
+        popupHeight: 550,
+    },
+    line: {
+        popupUrl: 'https://lineit.line.me/share/ui?url={url}&text={text}',
+        popupWidth: 500,
+        popupHeight: 550,
+    },
+    renren: {
+        popupUrl: 'http://widget.renren.com/dialog/share?resourceUrl={url}&srcUrl={url}&title={title}&description={excerpt}',
+        popupWidth: 500,
+        popupHeight: 550,
+    },
+
+    // Deprecated.
+    google_plus: {
+        popupUrl: 'https://plus.google.com/share?url={url}',
+        popupWidth: 500,
+        popupHeight: 550,
     },
 };
 
@@ -184,6 +292,9 @@ $.fn.socialityShare = function( options ) {
 $.fn.socialityShare.defaults = {
     url: window.location.href.replace( window.location.hash, '' ),
     title: document.title,
+    media: '',
+    excerpt: '',
+    text: '',
     counters: true,
     zeroes: false,
     timeout: 10000, // Show counters after this amount of time even if they aren’t ready
@@ -269,9 +380,22 @@ function Button( widget, options ) {
 
 Button.prototype = {
     init: function() {
+        this.getPopupUrl = $.proxy( this.getPopupUrl, this );
+        this.click = $.proxy( this.click, this );
+        this.initCounter = $.proxy( this.initCounter, this );
+
         this.detectParams();
-        this.widget.on( 'click', $.proxy( this.click, this ) );
-        setTimeout( $.proxy( this.initCounter, this ), 0 );
+
+        // set link href.
+        const options = this.options;
+        if ( options.popupUrl ) {
+            this.widget.attr( 'href', this.getPopupUrl() );
+        }
+
+        // click action.
+        this.widget.on( 'click', this.click );
+
+        setTimeout( this.initCounter, 0 );
     },
 
     update: function( options ) {
@@ -311,6 +435,21 @@ Button.prototype = {
         if ( data.url ) {
             this.options.url = data.url;
         }
+
+        // Custom page Media
+        if ( data.media ) {
+            this.options.media = data.media;
+        }
+
+        // Custom page Excerpt
+        if ( data.excerpt ) {
+            this.options.excerpt = data.excerpt;
+        }
+
+        // Custom page Text
+        if ( data.text ) {
+            this.options.text = data.text;
+        }
     },
 
     initCounter: function() {
@@ -347,12 +486,7 @@ Button.prototype = {
             process = options.click.call( this, e );
         }
         if ( process ) {
-            let url = makeUrl( options.popupUrl, {
-                url: options.url,
-                title: options.title,
-            } );
-            url = this.addAdditionalParamsToUrl( url );
-            this.openPopup( url, {
+            this.openPopup( this.getPopupUrl(), {
                 width: options.popupWidth,
                 height: options.popupHeight,
             } );
@@ -360,7 +494,16 @@ Button.prototype = {
         return false;
     },
 
-    addAdditionalParamsToUrl: function( url ) {
+    getPopupUrl: function() {
+        const options = this.options;
+        const url = makeUrl( options.popupUrl, {
+            url: options.url,
+            title: options.title,
+            media: options.media,
+            excerpt: options.excerpt,
+            text: options.text,
+        } );
+
         const params = $.param( $.extend( this.widget.data(), this.options.data ) );
         if ( $.isEmptyObject( params ) ) {
             return url;

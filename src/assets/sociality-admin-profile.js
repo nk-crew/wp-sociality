@@ -1,5 +1,5 @@
 const {
-    socialityAdmin,
+    socialityAdminProfile,
     jQuery: $,
 } = window;
 
@@ -9,8 +9,8 @@ const $document = $( document );
 function findSVG( name ) {
     let result = '';
 
-    if ( name && socialityAdmin.icons ) {
-        socialityAdmin.icons.forEach( ( data ) => {
+    if ( name && socialityAdminProfile.icons ) {
+        socialityAdminProfile.icons.forEach( ( data ) => {
             if ( ! result && data.title === name ) {
                 result = data.svg;
             }
@@ -25,7 +25,7 @@ function initIconpicker() {
     $( '.sociality-icp' ).iconpicker( {
         //component:'span'
         input: '.iconpicker-input',
-        icons: socialityAdmin.icons,
+        icons: socialityAdminProfile.icons,
         placement: 'bottomLeft',
     } )
         .on( 'iconpickerShow', function( e ) {
