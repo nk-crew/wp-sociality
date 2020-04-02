@@ -157,15 +157,15 @@ if ( ! class_exists( 'Sociality_Author_Bio' ) ) :
                                         <span class="btn btn-default iconpicker-component input-group-btn">
                                             <i>
                                                 <?php
-                                                if ( sociality()->svg_icons()->exists( $val['icon'] ? $val['icon'] : '' ) ) {
+                                                if ( sociality()->svg_icons()->exists( isset( $val['icon'] ) ? $val['icon'] : '' ) ) {
                                                     sociality()->svg_icons()->get_e( $val['icon'] );
                                                 } else {
                                                     echo esc_html__( 'Icon', '@@text_domain' );
                                                 }
                                                 ?>
                                             </i>
+                                            <input type="hidden" class="iconpicker-input" name="user_sociality_links[<?php echo esc_attr( $k ); ?>][icon]" value="<?php echo esc_attr( isset( $val['icon'] ) ? $val['icon'] : '' ); ?>">
                                         </span>
-                                        <input type="hidden" class="iconpicker-input" name="user_sociality_links[<?php echo esc_attr( $k ); ?>][icon]" value="<?php echo esc_attr( $val['icon'] ? $val['icon'] : '' ); ?>">
                                         <input class="form-control" value="<?php echo esc_attr( isset( $val['url'] ) ? $val['url'] : '' ); ?>" type="url" placeholder="https://..." name="user_sociality_links[<?php echo esc_attr( $k ); ?>][url]">
                                         <span class="btn btn-danger sociality-icon-picker-remove input-group-btn">
                                             <i class="dashicons dashicons-no-alt"></i>

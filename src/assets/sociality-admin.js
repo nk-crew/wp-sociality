@@ -58,7 +58,18 @@ function updateIconPickerIndexes( $parent ) {
 
 // add new icons
 $document.on( 'click', '.sociality-icon-picker-add', function() {
-    const newItem = '<div class="input-group"> <span class="btn btn-default sociality-icp iconpicker-component input-group-btn"> <i>Icon</i> <input type="hidden" class="iconpicker-input" name="user_sociality_links[1][icon]"> </span> <input class="form-control" type="url" placeholder="https://..." name="user_sociality_links[1][url]"> <span class="btn btn-danger input-group-btn sociality-icon-picker-remove"> <i class="dashicons dashicons-no-alt"></i> </span> </div>';
+    const newItem = `
+    <div class="input-group sociality-icp">
+        <span class="btn btn-default iconpicker-component input-group-btn">
+            <i>Icon</i>
+            <input type="hidden" class="iconpicker-input" name="user_sociality_links[1][icon]">
+        </span>
+        <input class="form-control" type="url" placeholder="https://..." name="user_sociality_links[1][url]">
+        <span class="btn btn-danger sociality-icon-picker-remove input-group-btn">
+            <i class="dashicons dashicons-no-alt"></i>
+        </span>
+    </div>`;
+
     const $insertAfter = $( this ).closest( '.sociality-icon-picker' ).children( '.input-group:last' );
 
     if ( $insertAfter.length ) {
