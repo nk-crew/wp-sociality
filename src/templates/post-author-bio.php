@@ -38,7 +38,7 @@
     }
 
     // description.
-    if ( $sclt_show_description ) {
+    if ( $sclt_show_description && get_the_author_meta( 'description' ) ) {
         ?>
         <div class="sociality-author-bio-description">
             <?php the_author_meta( 'description' ); ?>
@@ -56,7 +56,9 @@
                 <?php
                 foreach ( $sclt_social_links as $sclt_social_item ) {
                     ?>
-                <a href="<?php echo esc_url( $sclt_social_item['url'] ); ?>"><i class="<?php echo esc_attr( $sclt_social_item['icon'] ); ?>"></i></a>
+                    <a href="<?php echo esc_url( $sclt_social_item['url'] ); ?>">
+                        <?php sociality()->svg_icons()->get_e( $sclt_social_item['icon'] ); ?>
+                    </a>
                     <?php
                 }
                 ?>

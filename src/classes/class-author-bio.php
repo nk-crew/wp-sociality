@@ -118,7 +118,6 @@ if ( ! class_exists( 'Sociality_Author_Bio' ) ) :
         public function admin_author_settings_enqueue_assets() {
             // css.
             wp_enqueue_style( 'bootstrap-custom', sociality()->plugin_url . 'assets/vendor/bootstrap/css/bootstrap-custom.css', array(), '3.3.7' );
-            wp_enqueue_style( 'socicon', sociality()->plugin_url . 'assets/vendor/socicon/style.css', array(), '3.6.2' );
             wp_enqueue_style( 'fontawesome-iconpicker', sociality()->plugin_url . 'assets/vendor/iconpicker/css/fontawesome-iconpicker.min.css', array(), '3.2.0' );
             wp_enqueue_style( 'sociality-admin', sociality()->plugin_url . 'assets/sociality-admin.min.css', array(), '@@plugin_version' );
 
@@ -154,13 +153,21 @@ if ( ! class_exists( 'Sociality_Author_Bio' ) ) :
                         <td class="sociality-icon-picker">
                             <?php if ( is_array( $user_social_links ) ) : ?>
                                 <?php foreach ( $user_social_links as $k => $val ) { ?>
-                                    <div class="input-group">
-                                        <span class="btn btn-default sociality-icp iconpicker-component input-group-btn">
-                                            <i class="<?php echo esc_attr( $val['icon'] ? $val['icon'] : '' ); ?>"><?php echo $val['icon'] ? '' : esc_html__( 'Icon', '@@text_domain' ); ?></i>
-                                            <input type="hidden" class="iconpicker-input" name="user_sociality_links[<?php echo esc_attr( $k ); ?>][icon]" value="<?php echo esc_attr( $val['icon'] ? $val['icon'] : '' ); ?>">
+                                    <div class="input-group sociality-icp">
+                                        <span class="btn btn-default iconpicker-component input-group-btn">
+                                            <i>
+                                                <?php
+                                                if ( sociality()->svg_icons()->exists( $val['icon'] ? $val['icon'] : '' ) ) {
+                                                    sociality()->svg_icons()->get_e( $val['icon'] );
+                                                } else {
+                                                    echo esc_html__( 'Icon', '@@text_domain' );
+                                                }
+                                                ?>
+                                            </i>
                                         </span>
+                                        <input type="hidden" class="iconpicker-input" name="user_sociality_links[<?php echo esc_attr( $k ); ?>][icon]" value="<?php echo esc_attr( $val['icon'] ? $val['icon'] : '' ); ?>">
                                         <input class="form-control" value="<?php echo esc_attr( isset( $val['url'] ) ? $val['url'] : '' ); ?>" type="url" placeholder="https://..." name="user_sociality_links[<?php echo esc_attr( $k ); ?>][url]">
-                                        <span class="btn btn-danger input-group-btn sociality-icon-picker-remove">
+                                        <span class="btn btn-danger sociality-icon-picker-remove input-group-btn">
                                             <i class="dashicons dashicons-no-alt"></i>
                                         </span>
                                     </div>

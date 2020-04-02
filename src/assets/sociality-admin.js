@@ -5,6 +5,21 @@ const {
 
 const $document = $( document );
 
+// Find SVG.
+function findSVG( name ) {
+    let result = '';
+
+    if ( name && socialityAdmin.icons ) {
+        socialityAdmin.icons.forEach( ( data ) => {
+            if ( ! result && data.title === name ) {
+                result = data.svg;
+            }
+        } );
+    }
+
+    return result;
+}
+
 // init icon picker
 function initIconpicker() {
     $( '.sociality-icp' ).iconpicker( {
@@ -12,9 +27,20 @@ function initIconpicker() {
         input: '.iconpicker-input',
         icons: socialityAdmin.icons,
         placement: 'bottomLeft',
-    } ).on( 'iconpickerSelected', function() {
-        $( this ).find( 'i' ).html( '' );
-    } );
+    } )
+        .on( 'iconpickerShow', function( e ) {
+            // Update icons in list.
+            e.iconpickerInstance.iconpicker.find( '.iconpicker-item i[class]' ).each( function() {
+                const $icon = $( this );
+                const iconName = $icon.attr( 'class' );
+
+                $icon.html( findSVG( iconName ) );
+            } );
+        } )
+        .on( 'iconpickerSelected', function( e ) {
+            // Update selected icon.
+            $( this ).find( '.iconpicker-component i' ).removeAttr( 'class' ).html( findSVG( e.iconpickerValue ) );
+        } );
 }
 initIconpicker();
 
@@ -45,7 +71,9 @@ $document.on( 'click', '.sociality-icon-picker-add', function() {
 } );
 
 // remove icons
-$document.on( 'click', '.sociality-icon-picker-remove', function() {
+$document.on( 'click', '.sociality-icon-picker-remove', function( e ) {
+    e.preventDefault();
+
     // eslint-disable-next-line
     const yes = window.confirm( 'Are you sure? Selected social link with icon will be removed.' );
 
