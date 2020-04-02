@@ -1,25 +1,58 @@
 {
-    "name": "sociality",
-    "title": "Sociality",
-    "description": "Social functionality",
-    "license": "GPL-2.0",
-    "author": "nK <https://nkdev.info>",
-    "text_domain": "sociality",
-    "text_domain_define": "NK_SOCIALITY_DOMAIN",
-    "scripts": {
-        "build": "gulp",
-        "watch": "gulp watch"
-    },
-    "devDependencies": {
-        "del": "^2.2.2",
-        "json-file": "^0.1.0",
-        "gulp": "^3.9.1",
-        "gulp-run-sequence": "^0.3.2",
-        "gulp-rename": "^1.2.2",
-        "gulp-sort": "^2.0.0",
-        "gulp-replace": "^0.5.4",
-        "gulp-wp-pot": "^1.3.1",
-        "gulp-line-ending-corrector": "^1.0.1",
-        "gulp-cached": "^1.1.0"
+  "name": "sociality",
+  "title": "Sociality",
+  "version": "1.1.6",
+  "description": "Social features",
+  "license": "GPL-2.0",
+  "author": "nK <https://nkdev.info>",
+  "scripts": {
+    "build": "wpeg --build",
+    "dev": "wpeg --build --watch",
+    "production": "npm run make-pot && npm run make-json && wpeg --build --zip",
+    "php-lint": "composer phpcs",
+    "php-lint-fix": "composer phpcbf",
+    "css-lint": "stylelint --syntax scss \"src/**/*.scss\"",
+    "css-lint-fix": "stylelint --fix --syntax scss \"src/**/*.scss\"",
+    "js-lint": "eslint --ext .js src/",
+    "js-lint-fix": "eslint --ext .js --fix src/",
+    "lint": "npm run php-lint && npm run css-lint && npm run js-lint",
+    "lint-fix": "npm run php-lint-fix && npm run css-lint-fix && npm run js-lint-fix",
+    "make-pot": "composer wp -- i18n make-pot ./src ./src/languages/sociality.pot --skip-audit --exclude=vendor,vendors,node_modules --headers='{\"Last-Translator\":\"nK\",\"Report-Msgid-Bugs-To\":\"https://github.com/nk-o/sociality/issues\"}'",
+    "make-json": "po2json ./src/languages/sociality.pot ./src/languages/sociality.json --format=jed1.x --pretty --domain=@@text_domain",
+    "update:packages": "npm i -g npm-check-updates && npm-check-updates -u && npm install",
+    "postinstall": "composer install"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
     }
+  },
+  "devDependencies": {
+    "@babel/node": "^7.5.5",
+    "@babel/plugin-proposal-object-rest-spread": "^7.5.5",
+    "@babel/plugin-transform-react-jsx": "^7.3.0",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/register": "^7.5.5",
+    "@svgr/webpack": "^4.3.2",
+    "@wordpress/base-styles": "^1.4.0",
+    "babel-eslint": "^10.0.2",
+    "base64-inline-loader": "^1.1.1",
+    "eslint": "5.16.0",
+    "eslint-config-wordpress": "2.0.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "6.2.1",
+    "eslint-plugin-react": "7.13.0",
+    "eslint-plugin-wordpress": "^0.1.0",
+    "husky": "^2.7.0",
+    "json-file": "^0.1.0",
+    "md5": "^2.2.1",
+    "micromatch": "^4.0.2",
+    "po2json": "^0.4.5",
+    "stylelint": "^10.1.0",
+    "stylelint-config-recommended-scss": "^3.3.0",
+    "stylelint-config-standard": "^18.3.0",
+    "stylelint-order": "^3.0.1",
+    "stylelint-scss": "^3.9.4",
+    "wpeg": "0.0.23"
+  }
 }

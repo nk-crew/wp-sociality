@@ -30,7 +30,7 @@
 .sociality-author-bio-name a:hover,
 .sociality-author-bio-links a:hover {
     color: inherit;
-    opacity: 0.8;
+    opacity: .8;
 }
 .sociality-author-bio-links a {
     float: left;
@@ -44,8 +44,8 @@
 .sociality-author-bio-links a + a {
     margin-left: 12px;
 }
-.sociality-author-bio-links:after {
-    content: '';
+.sociality-author-bio-links::after {
+    content: "";
     display: block;
     clear: both;
 }
@@ -68,14 +68,11 @@
 }
 [data-sociality-like="thumbs"] .sociality-like-icon,
 [data-sociality-like="thumbs"] .sociality-dislike-icon {
-    cursor: pointer;
-    padding: 5px;
     display: inline-block;
+    padding: 5px;
     vertical-align: middle;
-}
-[data-sociality-like="thumbs"] .sociality-like-icon,
-[data-sociality-like="thumbs"] .sociality-dislike-icon {
-    opacity: 0.8;
+    cursor: pointer;
+    opacity: .8;
     transition: .3s opacity;
 }
 [data-sociality-like="thumbs"][data-post-liked="true"] .sociality-like-icon,
@@ -86,5 +83,5 @@
 [data-sociality-like="thumbs"][data-post-liked="true"] .sociality-dislike-icon,
 [data-sociality-like="thumbs"][data-post-liked="1"] .sociality-dislike-icon,
 [data-sociality-like="thumbs"][data-post-liked="-1"] .sociality-like-icon {
-    opacity: 0.4;
+    opacity: .4;
 }

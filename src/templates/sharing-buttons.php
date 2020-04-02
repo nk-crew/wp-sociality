@@ -1,25 +1,32 @@
 <?php
 /**
  * Sharing Buttons
+ *
+ * @package sociality
  */
 
-$icons = sociality()->settings()->get_option('socials','sociality_sharing', array(
-    'facebook'    => 'facebook',
-    'twitter'     => 'twitter',
-    'pinterest'   => 'pinterest'
-));
-$show_counters = sociality()->settings()->get_option('show_counters','sociality_sharing', true);
-$url = get_the_permalink();
-$title = get_the_title();
+$sclt_icons         = sociality()->settings()->get_option(
+    'socials',
+    'sociality_sharing',
+    array(
+        'facebook'    => 'facebook',
+        'twitter'     => 'twitter',
+        'pinterest'   => 'pinterest',
+    )
+);
+$sclt_show_counters = sociality()->settings()->get_option( 'show_counters', 'sociality_sharing', true );
+$sclt_url           = get_the_permalink();
+$sclt_title         = get_the_title();
 
 ?>
-<div class="sociality-share" data-url="<?php echo esc_url($url); ?>" data-title="<?php echo esc_attr($title); ?>" data-counters="<?php echo $show_counters ? 'true' : 'false'; ?>">
+
+<div class="sociality-share" data-url="<?php echo esc_url( $sclt_url ); ?>" data-title="<?php echo esc_attr( $sclt_title ); ?>" data-counters="<?php echo $sclt_show_counters ? 'true' : 'false'; ?>">
     <?php
-    foreach($icons as $icon) {
-        switch ($icon) {
+    foreach ( $sclt_icons as $sclt_icon ) {
+        switch ( $sclt_icon ) {
             case 'facebook':
                 ?>
-                <div class="sociality-share-button" title="<?php esc_attr_e('Share page on Facebook', NK_SOCIALITY_DOMAIN)?>" data-share="facebook">
+                <div class="sociality-share-button" title="<?php esc_attr_e( 'Share page on Facebook', '@@text_domain' ); ?>" data-share="facebook">
                     <span class="socicon-facebook"></span>
                     <span class="sociality-share-counter"></span>
                 </div>
@@ -27,16 +34,16 @@ $title = get_the_title();
                 break;
             case 'twitter':
                 ?>
-                <div class="sociality-share-button" title="<?php esc_attr_e('Share page on Twitter', NK_SOCIALITY_DOMAIN)?>" data-share="twitter">
+                <div class="sociality-share-button" title="<?php esc_attr_e( 'Share page on Twitter', '@@text_domain' ); ?>" data-share="twitter">
                     <span class="socicon-twitter"></span>
                     <span class="sociality-share-counter"></span>
                 </div>
                 <?php
                 break;
             case 'pinterest':
-                $media = get_the_post_thumbnail_url(null, 'full');
+                $sclt_media = get_the_post_thumbnail_url( null, 'full' );
                 ?>
-                <div class="sociality-share-button" title="<?php esc_attr_e('Share page on Pinterest', NK_SOCIALITY_DOMAIN)?>" data-share="pinterest" data-media="<?php echo esc_url($media); ?>">
+                <div class="sociality-share-button" title="<?php esc_attr_e( 'Share page on Pinterest', '@@text_domain' ); ?>" data-share="pinterest" data-media="<?php echo esc_url( $sclt_media ); ?>">
                     <span class="socicon-pinterest"></span>
                     <span class="sociality-share-counter"></span>
                 </div>
@@ -44,7 +51,7 @@ $title = get_the_title();
                 break;
             case 'vkontakte':
                 ?>
-                <div class="sociality-share-button" title="<?php esc_attr_e('Share page on VK', NK_SOCIALITY_DOMAIN)?>" data-share="vkontakte">
+                <div class="sociality-share-button" title="<?php esc_attr_e( 'Share page on VK', '@@text_domain' ); ?>" data-share="vkontakte">
                     <span class="socicon-vkontakte"></span>
                     <span class="sociality-share-counter"></span>
                 </div>

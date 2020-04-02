@@ -1,57 +1,68 @@
 <?php
 /**
- * Author BIO template for posts
+ * Author BIO template for posts.
+ *
+ * @package sociality
  */
+
 ?>
 
 <div class="sociality-author-bio">
     <?php
-    $show_avatar = sociality()->settings()->get_option('show_avatar','sociality_author_bio',true);
-    $show_name = sociality()->settings()->get_option('show_name','sociality_author_bio',true);
-    $show_description = sociality()->settings()->get_option('show_description','sociality_author_bio',true);
-    $show_social_links = sociality()->settings()->get_option('show_social_links','sociality_author_bio',true);
+    $sclt_show_avatar       = sociality()->settings()->get_option( 'show_avatar', 'sociality_author_bio', true );
+    $sclt_show_name         = sociality()->settings()->get_option( 'show_name', 'sociality_author_bio', true );
+    $sclt_show_description  = sociality()->settings()->get_option( 'show_description', 'sociality_author_bio', true );
+    $sclt_show_social_links = sociality()->settings()->get_option( 'show_social_links', 'sociality_author_bio', true );
 
-    // avatar
-    if ($show_avatar) {
-        $avatar_size = apply_filters('sociality_author_bio_avatar_size', 100);
+    // avatar.
+    if ( $sclt_show_avatar ) {
+        $sclt_avatar_size = apply_filters( 'sociality_author_bio_avatar_size', 100 );
         ?>
         <div class="sociality-author-bio-avatar">
-            <?php echo get_avatar(get_the_author_meta('user_email'), $avatar_size); ?>
+            <?php echo get_avatar( get_the_author_meta( 'user_email' ), $sclt_avatar_size ); ?>
         </div>
         <?php
     }
 
-    // name
-    if ($show_name) { ?>
+    // name.
+    if ( $sclt_show_name ) {
+        ?>
         <h4 class="sociality-author-bio-name">
-            <a href="<?php echo esc_url(get_author_posts_url(get_the_author_meta('ID'))); ?>" rel="author">
+            <a href="<?php echo esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ); ?>" rel="author">
                 <?php
-                echo get_the_author(); ?>
+                echo get_the_author();
+                ?>
             </a>
         </h4>
-    <?php }
+        <?php
+    }
 
-    // description
-    if ($show_description) {
+    // description.
+    if ( $sclt_show_description ) {
         ?>
         <div class="sociality-author-bio-description">
-            <?php the_author_meta('description'); ?>
+            <?php the_author_meta( 'description' ); ?>
         </div>
         <?php
     }
 
-    // social links
-    if ($show_social_links) {
-        $social_links = get_the_author_meta('user_sociality_links', get_the_author_meta('ID'));
+    // social links.
+    if ( $sclt_show_social_links ) {
+        $sclt_social_links = get_the_author_meta( 'user_sociality_links', get_the_author_meta( 'ID' ) );
 
-        if (is_array($social_links) && count($social_links) > 0) {
-            ?> <div class="sociality-author-bio-links"> <?php
-            foreach($social_links as $social_item) {
-                ?>
-                <a href="<?php echo esc_url($social_item['url']); ?>"><i class="<?php echo esc_attr($social_item['icon']); ?>"></i></a>
+        if ( is_array( $sclt_social_links ) && count( $sclt_social_links ) > 0 ) {
+            ?>
+            <div class="sociality-author-bio-links">
                 <?php
-            }
-            ?> </div> <?php
+                foreach ( $sclt_social_links as $sclt_social_item ) {
+                    ?>
+                <a href="<?php echo esc_url( $sclt_social_item['url'] ); ?>"><i class="<?php echo esc_attr( $sclt_social_item['icon'] ); ?>"></i></a>
+                    <?php
+                }
+                ?>
+            </div>
+            <?php
         }
-    } ?>
+    }
+    ?>
 </div>

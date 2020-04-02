@@ -1,52 +1,57 @@
-(function ($) {
-    "use strict";
+const {
+    socialityAdmin,
+    jQuery: $,
+} = window;
 
-    // init icon picker
-    function initIconpicker () {
-        $('.sociality-icp').iconpicker({
-            //component:'span'
-            input: '.iconpicker-input',
-            icons: socialityAdmin.icons,
-            placement: 'bottomLeft'
-        }).on('iconpickerSelected', function(e) {
-            $(this).find('i').html('');
-        });
-    }
+const $document = $( document );
+
+// init icon picker
+function initIconpicker() {
+    $( '.sociality-icp' ).iconpicker( {
+        //component:'span'
+        input: '.iconpicker-input',
+        icons: socialityAdmin.icons,
+        placement: 'bottomLeft',
+    } ).on( 'iconpickerSelected', function() {
+        $( this ).find( 'i' ).html( '' );
+    } );
+}
+initIconpicker();
+
+// update array indexes in names
+function updateIconPickerIndexes( $parent ) {
+    let i = 0;
+    $parent.children( '.input-group' ).each( function() {
+        $( this ).find( '.iconpicker-component > input' ).attr( 'name', 'user_sociality_links[' + i + '][icon]' );
+        $( this ).find( '.iconpicker-component' ).next().attr( 'name', 'user_sociality_links[' + i + '][url]' );
+        i++;
+    } );
+
     initIconpicker();
+}
 
-    // update array indexes in names
-    function updateIconPickerIndexes ($parent) {
-        var i = 0;
-        $parent.children('.input-group').each(function () {
-            $(this).find('.iconpicker-component > input').attr('name', 'user_sociality_links[' + i + '][icon]');
-            $(this).find('.iconpicker-component').next().attr('name', 'user_sociality_links[' + i + '][url]');
-            i++;
-        });
+// add new icons
+$document.on( 'click', '.sociality-icon-picker-add', function() {
+    const newItem = '<div class="input-group"> <span class="btn btn-default sociality-icp iconpicker-component input-group-btn"> <i>Icon</i> <input type="hidden" class="iconpicker-input" name="user_sociality_links[1][icon]"> </span> <input class="form-control" type="url" placeholder="https://..." name="user_sociality_links[1][url]"> <span class="btn btn-danger input-group-btn sociality-icon-picker-remove"> <i class="dashicons dashicons-no-alt"></i> </span> </div>';
+    const $insertAfter = $( this ).closest( '.sociality-icon-picker' ).children( '.input-group:last' );
 
-        initIconpicker();
+    if ( $insertAfter.length ) {
+        $insertAfter.after( newItem );
+    } else {
+        $( this ).closest( '.sociality-icon-picker' ).prepend( newItem );
     }
 
-    // add new icons
-    $('body').on('click', '.sociality-icon-picker-add', function (e) {
-        var newItem = '<div class="input-group"> <span class="btn btn-default sociality-icp iconpicker-component input-group-btn"> <i>Icon</i> <input type="hidden" class="iconpicker-input" name="user_sociality_links[1][icon]"> </span> <input class="form-control" type="url" placeholder="https://..." name="user_sociality_links[1][url]"> <span class="btn btn-danger input-group-btn sociality-icon-picker-remove"> <i class="dashicons dashicons-no-alt"></i> </span> </div>';
-        var $insertAfter = $(this).closest('.sociality-icon-picker').children('.input-group:last');
+    updateIconPickerIndexes( $( this ).closest( '.sociality-icon-picker' ) );
+} );
 
-        if ($insertAfter.length) {
-            $insertAfter.after(newItem)
-        } else {
-            $(this).closest('.sociality-icon-picker').prepend(newItem);
-        }
+// remove icons
+$document.on( 'click', '.sociality-icon-picker-remove', function() {
+    // eslint-disable-next-line
+    const yes = window.confirm( 'Are you sure? Selected social link with icon will be removed.' );
 
-        updateIconPickerIndexes($(this).closest('.sociality-icon-picker'));
-    });
-
-    // remove icons
-    $('body').on('click', '.sociality-icon-picker-remove', function (e) {
-        var yes = confirm('Are you sure? Selected social link with icon will be removed.');
-        if (yes) {
-            var $list = $(this).closest('.sociality-icon-picker');
-            $(this).parent().remove();
-            updateIconPickerIndexes($list);
-        }
-    });
-}(jQuery));
+    if ( yes ) {
+        const $list = $( this ).closest( '.sociality-icon-picker' );
+        $( this ).parent().remove();
+        updateIconPickerIndexes( $list );
+    }
+} );
