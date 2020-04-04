@@ -1,12 +1,13 @@
 # Sociality
 
-Contributors: nko
-Tags: social, share, post author block
-Requires at least: 4.0.0
-Tested up to: 5.3
-Stable tag: @@plugin_version
-License: GPLv2 or later
-License URI: <http://www.gnu.org/licenses/gpl-2.0.html>
+* Contributors: nko
+* Tags: social, share, post author block
+* Requires at least: 4.0.0
+* Tested up to: 5.4
+* Requires PHP: 5.5.9
+* Stable tag: @@plugin_version
+* License: GPLv2 or later
+* License URI: <http://www.gnu.org/licenses/gpl-2.0.html>
 
 Social features for the theme authors.
 
@@ -27,6 +28,12 @@ In the search field type “Sociality” and click Search Plugins. Once you’ve
 The manual installation method involves downloading our Sociality plugin and uploading it to your webserver via your favourite FTP application. The WordPress codex contains [instructions on how to do this here](https://codex.wordpress.org/Managing_Plugins#Manual_Plugin_Installation).
 
 ## Changelog
+
+= 1.2.0 =
+
+* added more sharing vendors
+* added sortable sharing buttons
+* removed Socicon, used pure SVG icons
 
 = 1.1.6 =
 
