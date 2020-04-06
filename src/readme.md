@@ -29,6 +29,10 @@ The manual installation method involves downloading our Sociality plugin and upl
 
 ## Changelog
 
+= 1.2.1 =
+
+* removed unused admin styles
+
 = 1.2.0 =
 
 * added more sharing vendors
