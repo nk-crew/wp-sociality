@@ -123,7 +123,6 @@ if ( ! class_exists( 'Sociality' ) ) :
         public function init_hooks() {
             add_action( 'admin_init', array( $this, 'admin_init' ) );
             add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_assets' ) );
-            add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
         }
 
         /**
@@ -155,13 +154,6 @@ if ( ! class_exists( 'Sociality' ) ) :
                     'ajax_nonce' => wp_create_nonce( 'ajax-nonce' ),
                 )
             );
-        }
-
-        /**
-         * Enqueue admin assets.
-         */
-        public function admin_enqueue_scripts() {
-            wp_enqueue_style( 'sociality-admin', sociality()->plugin_url . 'assets/sociality-admin.min.css', array(), '@@plugin_version' );
         }
 
         /**
