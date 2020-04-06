@@ -41,6 +41,9 @@ if ( empty( $sclt_icons ) ) {
             ?>
             <a rel="nofollow" href="#" class="sociality-share-button sociality-share-vendor-<?php echo esc_attr( $sclt_icon ); ?>" title="<?php echo esc_attr( $sclt_link_title ); ?>" data-share="<?php echo esc_attr( $sclt_icon ); ?>">
                 <?php sociality()->svg_icons()->get_e( $sclt_icon ); ?>
+                <span class="sociality-share-name">
+                    <?php echo esc_html( sociality()->svg_icons()->get_name( $sclt_icon ) ); ?>
+                </span>
                 <span class="sociality-share-counter"></span>
             </a>
             <?php

@@ -31,6 +31,7 @@ The manual installation method involves downloading our Sociality plugin and upl
 
 = 1.2.1 =
 
+* added vendor names inside sharing buttons
 * removed unused admin styles
 
 = 1.2.0 =
