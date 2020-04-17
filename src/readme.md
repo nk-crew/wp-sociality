@@ -29,6 +29,10 @@ The manual installation method involves downloading our Sociality plugin and upl
 
 ## Changelog
 
+= 1.2.2 =
+
+* removed unused classname from the like buttons templates
+
 = 1.2.1 =
 
 * added vendor names inside sharing buttons
