@@ -29,6 +29,10 @@ The manual installation method involves downloading our Sociality plugin and upl
 
 ## Changelog
 
+= 1.2.3 =
+
+* changed actions to use underscores instead of dashes, for example - new "sociality_sharing", old "sociality-sharing"
+
 = 1.2.2 =
 
 * removed unused classname from the like buttons templates
