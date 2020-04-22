@@ -1,11 +1,18 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 const pkg = require( 'json-file' ).read( './package.json' ).data;
 
 const cfg = {};
 
 // Build Paths.
+cfg.name = 'sociality';
 cfg.src = './src';
 cfg.dist_root = './dist';
-cfg.dist = '{dist_root}/sociality';
+cfg.dist = '{dist_root}/{name}';
+
+// Browser sync.
+cfg.browser_sync = {
+    proxy: '{name}.local',
+};
 
 // Template variables that will be automatically replaced.
 cfg.template_files_src = '{dist}/**/*.{md,php,js,css,pot,json}';
@@ -18,7 +25,11 @@ cfg.template_files_variables = {
 };
 
 // Copy files.
-cfg.copy_files_src = [ '{src}/**/*', '!{src}/**/*.{js,scss}', '{src}/**/vendor/**/*.{js,scss}' ];
+cfg.copy_files_src = [
+    '{src}/**/*',
+    '!{src}/**/*.{js,scss}',
+    '{src}/**/vendor/**/*.{js,scss}',
+];
 
 // Compile SCSS files.
 cfg.compile_scss_files_src = [
@@ -42,15 +53,25 @@ cfg.zip_files = [
         src_opts: {
             base: '{dist_root}',
         },
-        dist: '{dist_root}/sociality.zip',
+        dist: '{dist_root}/{name}.zip',
     },
 ];
 
 // Watch files.
-cfg.watch_files = [ '{src}/**/*', '!{src}/**/*.{js,scss}', '{src}/**/vendor/**/*.{js,scss}' ];
+cfg.watch_files = [
+    '{src}/**/*',
+    '!{src}/**/*.{js,scss}',
+    '{src}/**/vendor/**/*.{js,scss}',
+];
 
-cfg.watch_js_files = [ '{src}/**/*.js', '!{src}/*vendor/**/*' ];
+cfg.watch_js_files = [
+    '{src}/**/*.js',
+    '!{src}/*vendor/**/*',
+];
 
-cfg.watch_scss_files = [ '{src}/**/*.scss', '!{src}/*vendor/**/*' ];
+cfg.watch_scss_files = [
+    '{src}/**/*.scss',
+    '!{src}/*vendor/**/*',
+];
 
 module.exports = cfg;

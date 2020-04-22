@@ -23,12 +23,12 @@ function findSVG( name ) {
 // init icon picker
 function initIconpicker() {
     $( '.sociality-icp' ).iconpicker( {
-        //component:'span'
+        // component:'span'
         input: '.iconpicker-input',
         icons: socialityAdminProfile.icons,
         placement: 'bottomLeft',
     } )
-        .on( 'iconpickerShow', function( e ) {
+        .on( 'iconpickerShow', ( e ) => {
             // Update icons in list.
             e.iconpickerInstance.iconpicker.find( '.iconpicker-item i[class]' ).each( function() {
                 const $icon = $( this );
@@ -48,9 +48,9 @@ initIconpicker();
 function updateIconPickerIndexes( $parent ) {
     let i = 0;
     $parent.children( '.input-group' ).each( function() {
-        $( this ).find( '.iconpicker-component > input' ).attr( 'name', 'user_sociality_links[' + i + '][icon]' );
-        $( this ).find( '.iconpicker-component' ).next().attr( 'name', 'user_sociality_links[' + i + '][url]' );
-        i++;
+        $( this ).find( '.iconpicker-component > input' ).attr( 'name', `user_sociality_links[${ i }][icon]` );
+        $( this ).find( '.iconpicker-component' ).next().attr( 'name', `user_sociality_links[${ i }][url]` );
+        i += 1;
     } );
 
     initIconpicker();

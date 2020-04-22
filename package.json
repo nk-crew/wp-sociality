@@ -15,44 +15,29 @@
     "css-lint-fix": "stylelint --fix --syntax scss \"src/**/*.scss\"",
     "js-lint": "eslint --ext .js src/",
     "js-lint-fix": "eslint --ext .js --fix src/",
-    "lint": "npm run php-lint && npm run css-lint && npm run js-lint",
-    "lint-fix": "npm run php-lint-fix && npm run css-lint-fix && npm run js-lint-fix",
     "make-pot": "composer wp -- i18n make-pot ./src ./src/languages/sociality.pot --skip-audit --exclude=vendor,vendors,node_modules --headers='{\"Last-Translator\":\"nK\",\"Report-Msgid-Bugs-To\":\"https://github.com/nk-o/sociality/issues\"}'",
     "make-json": "po2json ./src/languages/sociality.pot ./src/languages/sociality.json --format=jed1.x --pretty --domain=@@text_domain",
-    "update:packages": "npm i -g npm-check-updates && npm-check-updates -u && npm install",
     "postinstall": "composer install"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "devDependencies": {
-    "@babel/node": "^7.5.5",
-    "@babel/plugin-proposal-object-rest-spread": "^7.5.5",
-    "@babel/plugin-transform-react-jsx": "^7.3.0",
-    "@babel/preset-env": "^7.5.5",
-    "@babel/register": "^7.5.5",
-    "@svgr/webpack": "^4.3.2",
-    "@wordpress/base-styles": "^1.4.0",
-    "babel-eslint": "^10.0.2",
+    "@babel/node": "^7.8.7",
+    "@babel/plugin-proposal-object-rest-spread": "^7.9.5",
+    "@babel/plugin-transform-react-jsx": "^7.9.4",
+    "@babel/preset-env": "^7.9.5",
+    "@babel/register": "^7.9.0",
+    "@svgr/webpack": "^5.3.1",
     "base64-inline-loader": "^1.1.1",
-    "eslint": "5.16.0",
-    "eslint-config-wordpress": "2.0.0",
-    "eslint-plugin-import": "^2.18.2",
-    "eslint-plugin-jsx-a11y": "6.2.1",
-    "eslint-plugin-react": "7.13.0",
-    "eslint-plugin-wordpress": "^0.1.0",
-    "husky": "^2.7.0",
+    "eslint-config-nk": "^0.0.17",
+    "husky": "^3.1.0",
     "json-file": "^0.1.0",
+    "lint-staged": "^10.1.7",
     "md5": "^2.2.1",
     "micromatch": "^4.0.2",
     "po2json": "^0.4.5",
-    "stylelint": "^10.1.0",
-    "stylelint-config-recommended-scss": "^3.3.0",
-    "stylelint-config-standard": "^18.3.0",
-    "stylelint-order": "^3.0.1",
-    "stylelint-scss": "^3.9.4",
-    "wpeg": "0.0.23"
+    "stylelint-config-nk": "^0.0.10",
+    "wpeg": "1.0.7"
+  },
+  "dependencies": {
+    "@wordpress/base-styles": "^1.4.0"
   }
 }

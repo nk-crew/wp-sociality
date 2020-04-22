@@ -34,16 +34,16 @@ $document.on( 'click', '[data-sociality-like="thumbs"]:not(.busy) .sociality-lik
     $.ajax( {
         type: 'post',
         url: socialityData.ajax_url,
-        data: 'action=sociality-like-action&nonce=' + socialityData.ajax_nonce + '&post_id=' + postId + '&post_type=' + postType + '&like_action=' + action,
-        success: function( data ) {
-            if ( typeof data === 'object' && data.success ) {
+        data: `action=sociality-like-action&nonce=${ socialityData.ajax_nonce }&post_id=${ postId }&post_type=${ postType }&like_action=${ action }`,
+        success( data ) {
+            if ( 'object' === typeof data && data.success ) {
                 $count.text( data.likes_count );
                 $parent.attr( 'data-post-likes-count', data.likes_count );
                 $parent.attr( 'data-post-liked', data.post_liked );
             }
             $parent.removeClass( 'busy' );
         },
-        error: function( data ) {
+        error( data ) {
             // eslint-disable-next-line
             console.log( data );
             $parent.removeClass( 'busy' );

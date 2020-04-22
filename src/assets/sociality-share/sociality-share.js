@@ -12,7 +12,46 @@ const {
 const $document = $( document );
 
 const prefix = 'sociality-share';
-const protocol = location.protocol === 'https:' ? 'https:' : 'http:';
+const protocol = 'https:' === location.protocol ? 'https:' : 'http:';
+
+/**
+ * Helpers
+ */
+
+// Camelize data-attributes
+function dataToOptions( elem ) {
+    function upper( m, l ) {
+        return l.toUpper();
+    }
+    const options = {};
+    const data = elem.data();
+
+    Object.keys( data ).forEach( ( key ) => {
+        let value = data[ key ];
+        if ( 'yes' === value ) {
+            value = true;
+        } else if ( 'no' === value ) {
+            value = false;
+        }
+        options[ key.replace( /-(\w)/g, upper ) ] = value;
+    } );
+
+    return options;
+}
+
+function template( tmpl, context, filter ) {
+    return tmpl.replace( /\{([^}]+)\}/g, ( m, key ) => {
+        // If key doesn't exists in the context we should keep template tag as is
+        if ( key in context ) {
+            return filter ? filter( context[ key ] ) : context[ key ];
+        }
+        return m;
+    } );
+}
+
+function makeUrl( url, context ) {
+    return template( url, context, encodeURIComponent );
+}
 
 /**
  * Buttons
@@ -20,7 +59,7 @@ const protocol = location.protocol === 'https:' ? 'https:' : 'http:';
 const services = {
     facebook: {
         counterUrl: 'https://graph.facebook.com/?id={url}',
-        convertNumber: function( data ) {
+        convertNumber( data ) {
             return data.share.share_count;
         },
         popupUrl: 'https://www.facebook.com/sharer.php?t={title}&u={url}',
@@ -32,7 +71,7 @@ const services = {
         popupUrl: 'https://twitter.com/intent/tweet?text={text}&url={url}',
         popupWidth: 600,
         popupHeight: 250,
-        click: function() {
+        click() {
             // Add colon to improve readability
             if ( ! /[.?:\-–—]\s*$/.test( this.options.title ) ) {
                 this.options.title += ':';
@@ -41,8 +80,8 @@ const services = {
         },
     },
     pinterest: {
-        counterUrl: protocol + '//api.pinterest.com/v1/urls/count.json?url={url}&callback=?',
-        convertNumber: function( data ) {
+        counterUrl: `${ protocol }//api.pinterest.com/v1/urls/count.json?url={url}&callback=?`,
+        convertNumber( data ) {
             return data.count;
         },
         popupUrl: 'https://pinterest.com/pin/create/button/?url={url}&description={text}&media={media}',
@@ -51,7 +90,7 @@ const services = {
     },
     vkontakte: {
         counterUrl: 'https://vk.com/share.php?act=count&url={url}&index={index}',
-        counter: function( jsonUrl, deferred ) {
+        counter( jsonUrl, deferred ) {
             const options = services.vkontakte;
             if ( ! options._ ) {
                 options._ = [];
@@ -59,7 +98,7 @@ const services = {
                     window.VK = {};
                 }
                 window.VK.Share = {
-                    count: function( idx, number ) {
+                    count( idx, number ) {
                         options._[ idx ].resolve( number );
                     },
                 };
@@ -67,7 +106,7 @@ const services = {
 
             const index = options._.length;
             options._.push( deferred );
-            $.getScript( makeUrl( jsonUrl, { index: index } ) )
+            $.getScript( makeUrl( jsonUrl, { index } ) )
                 .fail( deferred.reject );
         },
         popupUrl: 'https://vk.com/share.php?url={url}&title={title}&comment={excerpt}',
@@ -75,8 +114,8 @@ const services = {
         popupHeight: 450,
     },
     odnoklassniki: {
-        counterUrl: protocol + '//connect.ok.ru/dk?st.cmd=extLike&ref={url}&uid={index}',
-        counter: function( jsonUrl, deferred ) {
+        counterUrl: `${ protocol }//connect.ok.ru/dk?st.cmd=extLike&ref={url}&uid={index}`,
+        counter( jsonUrl, deferred ) {
             const options = services.odnoklassniki;
             if ( ! options._ ) {
                 options._ = [];
@@ -90,7 +129,7 @@ const services = {
 
             const index = options._.length;
             options._.push( deferred );
-            $.getScript( makeUrl( jsonUrl, { index: index } ) )
+            $.getScript( makeUrl( jsonUrl, { index } ) )
                 .fail( deferred.reject );
         },
         popupUrl: 'https://connect.ok.ru/offer?url={url}',
@@ -98,13 +137,17 @@ const services = {
         popupHeight: 336,
     },
     mailru: {
-        counterUrl: protocol + '//connect.mail.ru/share_count?url_list={url}&callback=1&func=?',
-        convertNumber: function( data ) {
-            for ( const url in data ) {
-                if ( data.hasOwnProperty( url ) ) {
-                    return data[ url ].shares;
+        counterUrl: `${ protocol }//connect.mail.ru/share_count?url_list={url}&callback=1&func=?`,
+        convertNumber( data ) {
+            let result = '';
+
+            Object.keys( data ).forEach( ( url ) => {
+                if ( ! result && data[ url ] && data[ url ].shares ) {
+                    result = data[ url ].shares;
                 }
-            }
+            } );
+
+            return result;
         },
         popupUrl: 'https://connect.mail.ru/share?share_url={url}&title={title}',
         popupWidth: 492,
@@ -234,7 +277,7 @@ const services = {
  */
 const counters = {
     promises: {},
-    fetch: function( service, url, extraOptions ) {
+    fetch( service, url, extraOptions ) {
         if ( ! counters.promises[ service ] ) {
             counters.promises[ service ] = {};
         }
@@ -246,13 +289,13 @@ const counters = {
 
         const options = $.extend( {}, services[ service ], extraOptions );
         const deferred = $.Deferred();
-        const jsonUrl = options.counterUrl && makeUrl( options.counterUrl, { url: url } );
+        const jsonUrl = options.counterUrl && makeUrl( options.counterUrl, { url } );
 
         if ( jsonUrl && $.isFunction( options.counter ) ) {
             options.counter( jsonUrl, deferred );
         } else if ( options.counterUrl ) {
             $.getJSON( jsonUrl )
-                .done( function( data ) {
+                .done( ( data ) => {
                     try {
                         let number = data;
                         if ( $.isFunction( options.convertNumber ) ) {
@@ -273,102 +316,9 @@ const counters = {
     },
 };
 
-// jQuery plugin
-$.fn.socialityShare = function( options ) {
-    return this.each( function() {
-        const elem = $( this );
-        let instance = elem.data( prefix );
-        if ( instance ) {
-            if ( $.isPlainObject( options ) ) {
-                instance.update( options );
-            }
-        } else {
-            instance = new SocialityShare( elem, $.extend( {}, $.fn.socialityShare.defaults, options, dataToOptions( elem ) ) );
-            elem.data( prefix, instance );
-        }
-    } );
-};
-
-$.fn.socialityShare.defaults = {
-    url: window.location.href.replace( window.location.hash, '' ),
-    title: document.title,
-    media: '',
-    excerpt: '',
-    text: '',
-    counters: true,
-    zeroes: false,
-    timeout: 10000, // Show counters after this amount of time even if they aren’t ready
-    popupCheckInterval: 500,
-};
-
-function SocialityShare( container, options ) {
-    this.container = container;
-    this.options = options;
-    this.init();
-}
-
-SocialityShare.prototype = {
-    init: function() {
-        this.countersLeft = 0;
-        this.number = 0;
-        this.container.on( 'counter.' + prefix, $.proxy( this.updateCounter, this ) );
-
-        const buttons = this.container.find( '.' + prefix + '-button' );
-
-        this.buttons = [];
-        buttons.each( $.proxy( function( idx, elem ) {
-            const button = new Button( $( elem ), this.options );
-            this.buttons.push( button );
-            if ( button.options.counterUrl ) {
-                this.countersLeft++;
-            }
-        }, this ) );
-
-        if ( this.options.counters ) {
-            this.timeout = setTimeout( $.proxy( this.ready, this, true ), this.options.timeout );
-        }
-    },
-    update: function( options ) {
-        if ( ! options.forceUpdate && options.url === this.options.url ) {
-            return;
-        }
-
-        // Reset counters
-        this.number = 0;
-        this.countersLeft = this.buttons.length;
-        if ( this.widget ) {
-            this.widget.find( '.' + prefix + '-counter' ).html( '' );
-        }
-
-        // Update options
-        $.extend( this.options, options );
-        for ( let buttonIdx = 0; buttonIdx < this.buttons.length; buttonIdx++ ) {
-            this.buttons[ buttonIdx ].update( options );
-        }
-    },
-    updateCounter: function( e, service, number ) {
-        number = number || 0;
-
-        if ( number || this.options.zeroes ) {
-            this.number += number;
-        }
-
-        this.countersLeft--;
-
-        if ( this.countersLeft === 0 ) {
-            this.ready();
-        }
-    },
-    ready: function( silent ) {
-        if ( this.timeout ) {
-            clearTimeout( this.timeout );
-        }
-        if ( ! silent ) {
-            this.container.trigger( 'ready.' + prefix, this.number );
-        }
-    },
-};
-
+/*
+ * Button
+ */
 function Button( widget, options ) {
     this.widget = widget;
     this.options = $.extend( {}, options );
@@ -379,7 +329,7 @@ function Button( widget, options ) {
 }
 
 Button.prototype = {
-    init: function() {
+    init() {
         this.getPopupUrl = $.proxy( this.getPopupUrl, this );
         this.click = $.proxy( this.click, this );
         this.initCounter = $.proxy( this.initCounter, this );
@@ -387,7 +337,7 @@ Button.prototype = {
         this.detectParams();
 
         // set link href.
-        const options = this.options;
+        const { options } = this;
         if ( options.popupUrl ) {
             this.widget.attr( 'href', this.getPopupUrl() );
         }
@@ -398,13 +348,13 @@ Button.prototype = {
         setTimeout( this.initCounter, 0 );
     },
 
-    update: function( options ) {
+    update( options ) {
         $.extend( this.options, { forceUpdate: false }, options );
-        this.widget.find( '.' + prefix + '-counter' ).html( '' );
+        this.widget.find( `.${ prefix }-counter` ).html( '' );
         this.initCounter();
     },
 
-    detectService: function() {
+    detectService() {
         const service = this.widget.data( 'share' );
         if ( ! service ) {
             return;
@@ -413,13 +363,13 @@ Button.prototype = {
         $.extend( this.options, services[ service ] );
     },
 
-    detectParams: function() {
+    detectParams() {
         const data = this.widget.data();
 
         // Custom page counter URL or number
         if ( data.counter ) {
             const number = parseInt( data.counter, 10 );
-            if ( isNaN( number ) ) {
+            if ( Number.isNaN( number ) ) {
                 this.options.counterUrl = data.counter;
             } else {
                 this.options.counterNumber = number;
@@ -452,7 +402,7 @@ Button.prototype = {
         }
     },
 
-    initCounter: function() {
+    initCounter() {
         if ( this.options.counters ) {
             if ( this.options.counterNumber ) {
                 this.updateCounter( this.options.counterNumber );
@@ -467,20 +417,20 @@ Button.prototype = {
         }
     },
 
-    updateCounter: function( number ) {
+    updateCounter( number ) {
         number = parseInt( number, 10 ) || 0;
 
         if ( ! number && ! this.options.zeroes ) {
             number = '';
         }
 
-        this.widget.find( '.' + prefix + '-counter' ).html( number );
+        this.widget.find( `.${ prefix }-counter` ).html( number );
 
-        this.widget.trigger( 'counter.' + prefix, [ this.service, number ] );
+        this.widget.trigger( `counter.${ prefix }`, [ this.service, number ] );
     },
 
-    click: function( e ) {
-        const options = this.options;
+    click( e ) {
+        const { options } = this;
         let process = true;
         if ( $.isFunction( options.click ) ) {
             process = options.click.call( this, e );
@@ -494,8 +444,8 @@ Button.prototype = {
         return false;
     },
 
-    getPopupUrl: function() {
-        const options = this.options;
+    getPopupUrl() {
+        const { options } = this;
         const url = makeUrl( options.popupUrl, {
             url: options.url,
             title: options.title,
@@ -508,11 +458,11 @@ Button.prototype = {
         if ( $.isEmptyObject( params ) ) {
             return url;
         }
-        const glue = url.indexOf( '?' ) === -1 ? '?' : '&';
+        const glue = -1 === url.indexOf( '?' ) ? '?' : '&';
         return url + glue + params;
     },
 
-    openPopup: function( url, params ) {
+    openPopup( url, params ) {
         const dualScreenLeft = window.screenLeft;
         const dualScreenTop = window.screenTop;
         const width = window.innerWidth;
@@ -524,18 +474,18 @@ Button.prototype = {
             top = Math.round( ( height / 3 ) - ( params.height / 2 ) ) + dualScreenTop;
         }
 
-        const win = window.open( url, 'sl_' + this.service, 'left=' + left + ',top=' + top + ',' +
-            'width=' + params.width + ',height=' + params.height + ',personalbar=0,toolbar=0,scrollbars=1,resizable=1' );
+        const win = window.open( url, `sl_${ this.service }`, `left=${ left },top=${ top },`
+            + `width=${ params.width },height=${ params.height },personalbar=0,toolbar=0,scrollbars=1,resizable=1` );
         if ( win ) {
             win.focus();
-            this.widget.trigger( 'popup_opened.' + prefix, [ this.service, win ] );
+            this.widget.trigger( `popup_opened.${ prefix }`, [ this.service, win ] );
 
             const timer = setInterval( $.proxy( function() {
                 if ( ! win.closed ) {
                     return;
                 }
                 clearInterval( timer );
-                this.widget.trigger( 'popup_closed.' + prefix, this.service );
+                this.widget.trigger( `popup_closed.${ prefix }`, this.service );
             }, this ), this.options.popupCheckInterval );
         } else {
             location.href = url;
@@ -543,46 +493,110 @@ Button.prototype = {
     },
 };
 
-/**
- * Helpers
+/*
+ * Sociality Share
  */
-
-// Camelize data-attributes
-function dataToOptions( elem ) {
-    function upper( m, l ) {
-        return l.toUpper();
-    }
-    const options = {};
-    const data = elem.data();
-    for ( const key in data ) {
-        let value = data[ key ];
-        if ( value === 'yes' ) {
-            value = true;
-        } else if ( value === 'no' ) {
-            value = false;
-        }
-        options[ key.replace( /-(\w)/g, upper ) ] = value;
-    }
-    return options;
+function SocialityShare( container, options ) {
+    this.container = container;
+    this.options = options;
+    this.init();
 }
 
-function makeUrl( url, context ) {
-    return template( url, context, encodeURIComponent );
-}
+SocialityShare.prototype = {
+    init() {
+        this.countersLeft = 0;
+        this.number = 0;
+        this.container.on( `counter.${ prefix }`, $.proxy( this.updateCounter, this ) );
 
-function template( tmpl, context, filter ) {
-    return tmpl.replace( /\{([^}]+)\}/g, function( m, key ) {
-        // If key doesn't exists in the context we should keep template tag as is
-        if ( key in context ) {
-            return filter ? filter( context[ key ] ) : context[ key ];
+        const buttons = this.container.find( `.${ prefix }-button` );
+
+        this.buttons = [];
+        buttons.each( $.proxy( function( idx, elem ) {
+            const button = new Button( $( elem ), this.options );
+            this.buttons.push( button );
+            if ( button.options.counterUrl ) {
+                this.countersLeft += 1;
+            }
+        }, this ) );
+
+        if ( this.options.counters ) {
+            this.timeout = setTimeout( $.proxy( this.ready, this, true ), this.options.timeout );
         }
-        return m;
+    },
+    update( options ) {
+        if ( ! options.forceUpdate && options.url === this.options.url ) {
+            return;
+        }
+
+        // Reset counters
+        this.number = 0;
+        this.countersLeft = this.buttons.length;
+        if ( this.widget ) {
+            this.widget.find( `.${ prefix }-counter` ).html( '' );
+        }
+
+        // Update options
+        $.extend( this.options, options );
+        for ( let buttonIdx = 0; buttonIdx < this.buttons.length; buttonIdx += 1 ) {
+            this.buttons[ buttonIdx ].update( options );
+        }
+    },
+    updateCounter( e, service, number ) {
+        number = number || 0;
+
+        if ( number || this.options.zeroes ) {
+            this.number += number;
+        }
+
+        this.countersLeft -= 1;
+
+        if ( 0 === this.countersLeft ) {
+            this.ready();
+        }
+    },
+    ready( silent ) {
+        if ( this.timeout ) {
+            clearTimeout( this.timeout );
+        }
+        if ( ! silent ) {
+            this.container.trigger( `ready.${ prefix }`, this.number );
+        }
+    },
+};
+
+/*
+ * jQuery plugin
+ */
+$.fn.socialityShare = function( options ) {
+    return this.each( function() {
+        const elem = $( this );
+        let instance = elem.data( prefix );
+        if ( instance ) {
+            if ( $.isPlainObject( options ) ) {
+                instance.update( options );
+            }
+        } else {
+            instance = new SocialityShare( elem, $.extend( {}, $.fn.socialityShare.defaults, options, dataToOptions( elem ) ) );
+            elem.data( prefix, instance );
+        }
     } );
-}
+};
+
+$.fn.socialityShare.defaults = {
+    url: window.location.href.replace( window.location.hash, '' ),
+    title: document.title,
+    media: '',
+    excerpt: '',
+    text: '',
+    counters: true,
+    zeroes: false,
+    timeout: 10000, // Show counters after this amount of time even if they aren’t ready
+    popupCheckInterval: 500,
+};
 
 /**
  * Auto initialization
  */
-$document.on( 'ready.' + prefix, function() {
-    $( '.' + prefix ).socialityShare();
+$document.on( `ready.${ prefix }`, () => {
+    $( `.${ prefix }` ).socialityShare();
 } );
