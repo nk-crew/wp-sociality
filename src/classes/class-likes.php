@@ -41,7 +41,8 @@ if ( ! class_exists( 'Sociality_Likes' ) ) :
          */
         private function init_actions() {
             // add action to show likes.
-            add_action( 'sociality-likes', array( $this, 'get_likes_action' ), 10, 2 );
+            add_action( 'sociality_likes', array( $this, 'get_likes_action' ), 10, 2 );
+            add_action( 'sociality-likes', array( $this, 'get_likes_action' ), 10, 2 ); // fallback.
 
             // like/dislike ajax actions.
             add_action( 'wp_ajax_nopriv_sociality-like-action', array( $this, 'ajax_post_like_action' ), 99 );
@@ -53,30 +54,30 @@ if ( ! class_exists( 'Sociality_Likes' ) ) :
          *
          * Usage:
          *   // Posts
-         *   do_action('sociality-likes', get_the_ID(), 'post');
+         *   do_action('sociality_likes', get_the_ID(), 'post');
          *
          *   // Pages
-         *   do_action('sociality-likes', get_the_ID(), 'page');
+         *   do_action('sociality_likes', get_the_ID(), 'page');
          *
          *   // Comments
-         *   do_action('sociality-likes', get_comment_ID(), 'comment');
+         *   do_action('sociality_likes', get_comment_ID(), 'comment');
          *
          *   // WooCommerce Products
-         *   do_action('sociality-likes', get_comment_ID(), 'wc_product');
+         *   do_action('sociality_likes', get_comment_ID(), 'wc_product');
          *
          *   // WooCommerce Reviews
-         *   do_action('sociality-likes', get_comment_ID(), 'wc_review');
+         *   do_action('sociality_likes', get_comment_ID(), 'wc_review');
          *
          *   // bbPress
-         *   do_action('sociality-likes', bbp_get_topic_id(), 'bb_topic');
-         *   do_action('sociality-likes', bbp_get_reply_id(), 'bb_reply');
+         *   do_action('sociality_likes', bbp_get_topic_id(), 'bb_topic');
+         *   do_action('sociality_likes', bbp_get_reply_id(), 'bb_reply');
          *
          *   // BuddyPress
-         *   do_action('sociality-likes', bp_get_activity_comment_id(), 'bp_activity');
-         *   do_action('sociality-likes', bp_get_activity_id(), 'bp_activity');
+         *   do_action('sociality_likes', bp_get_activity_comment_id(), 'bp_activity');
+         *   do_action('sociality_likes', bp_get_activity_id(), 'bp_activity');
          *
          *   // Custom Post Type Portfolio
-         *   do_action('sociality-likes', get_the_ID(), 'portfolio');
+         *   do_action('sociality_likes', get_the_ID(), 'portfolio');
          *
          * @param int    $post_id - post ID.
          * @param string $post_type - post type.

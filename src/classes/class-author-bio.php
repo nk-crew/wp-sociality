@@ -41,7 +41,8 @@ if ( ! class_exists( 'Sociality_Author_Bio' ) ) :
          */
         private function init_actions() {
             // add action to show author bio template.
-            add_action( 'sociality-author-bio', array( $this, 'bio_custom_action' ) );
+            add_action( 'sociality_author_bio', array( $this, 'bio_custom_action' ) );
+            add_action( 'sociality-author-bio', array( $this, 'bio_custom_action' ) ); // fallback.
 
             // add filter to show bio before or after content.
             add_filter( 'the_content', array( $this, 'bio_content' ) );

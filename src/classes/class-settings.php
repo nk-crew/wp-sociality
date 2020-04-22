@@ -171,7 +171,7 @@ if ( ! class_exists( 'Sociality_Settings' ) ) :
                     array(
                         'name'    => 'type_post',
                         'label'   => __( 'Posts', '@@text_domain' ),
-                        'desc'    => '<code>do_action(\'sociality-likes\', get_the_ID(), \'post\');</code>',
+                        'desc'    => '<code>do_action(\'sociality_likes\', get_the_ID(), \'post\');</code>',
                         'type'    => 'select',
                         'options' => array(
                             'disabled' => __( 'Disabled', '@@text_domain' ),
@@ -183,7 +183,7 @@ if ( ! class_exists( 'Sociality_Settings' ) ) :
                     array(
                         'name'    => 'type_page',
                         'label'   => __( 'Pages', '@@text_domain' ),
-                        'desc'    => '<code>do_action(\'sociality-likes\', get_the_ID(), \'page\');</code>',
+                        'desc'    => '<code>do_action(\'sociality_likes\', get_the_ID(), \'page\');</code>',
                         'type'    => 'select',
                         'options' => array(
                             'disabled' => __( 'Disabled', '@@text_domain' ),
@@ -195,7 +195,7 @@ if ( ! class_exists( 'Sociality_Settings' ) ) :
                     array(
                         'name'    => 'type_comment',
                         'label'   => __( 'Comments', '@@text_domain' ),
-                        'desc'    => '<code>do_action(\'sociality-likes\', get_comment_ID(), \'comment\');</code>',
+                        'desc'    => '<code>do_action(\'sociality_likes\', get_comment_ID(), \'comment\');</code>',
                         'type'    => 'select',
                         'options' => array(
                             'disabled' => __( 'Disabled', '@@text_domain' ),
@@ -207,7 +207,7 @@ if ( ! class_exists( 'Sociality_Settings' ) ) :
                     array(
                         'name'    => 'type_wc_product',
                         'label'   => __( 'WooCommerce Products', '@@text_domain' ),
-                        'desc'    => '<code>do_action(\'sociality-likes\', get_the_ID(), \'wc_product\');</code>',
+                        'desc'    => '<code>do_action(\'sociality_likes\', get_the_ID(), \'wc_product\');</code>',
                         'type'    => 'select',
                         'options' => array(
                             'disabled' => __( 'Disabled', '@@text_domain' ),
@@ -219,7 +219,7 @@ if ( ! class_exists( 'Sociality_Settings' ) ) :
                     array(
                         'name'    => 'type_wc_review',
                         'label'   => __( 'WooCommerce Reviews', '@@text_domain' ),
-                        'desc'    => '<code>do_action(\'sociality-likes\', get_comment_ID(), \'wc_review\');</code>',
+                        'desc'    => '<code>do_action(\'sociality_likes\', get_comment_ID(), \'wc_review\');</code>',
                         'type'    => 'select',
                         'options' => array(
                             'disabled' => __( 'Disabled', '@@text_domain' ),
@@ -231,7 +231,7 @@ if ( ! class_exists( 'Sociality_Settings' ) ) :
                     array(
                         'name'    => 'type_bb_topic',
                         'label'   => __( 'bbPress Topics and Replies', '@@text_domain' ),
-                        'desc'    => '<code>do_action(\'sociality-likes\', bbp_get_topic_id(), \'bb_topic\');</code><br><code>do_action(\'sociality-likes\', bbp_get_reply_id(), \'bb_reply\');</code>',
+                        'desc'    => '<code>do_action(\'sociality_likes\', bbp_get_topic_id(), \'bb_topic\');</code><br><code>do_action(\'sociality_likes\', bbp_get_reply_id(), \'bb_reply\');</code>',
                         'type'    => 'select',
                         'options' => array(
                             'disabled' => __( 'Disabled', '@@text_domain' ),
@@ -243,7 +243,7 @@ if ( ! class_exists( 'Sociality_Settings' ) ) :
                     array(
                         'name'    => 'type_bp_activity',
                         'label'   => __( 'BuddyPress', '@@text_domain' ),
-                        'desc'    => '<code>do_action(\'sociality-likes\', bp_get_activity_comment_id(), \'bp_activity\');</code><br><code>do_action(\'sociality-likes\', bp_get_activity_id(), \'bp_activity\');</code>',
+                        'desc'    => '<code>do_action(\'sociality_likes\', bp_get_activity_comment_id(), \'bp_activity\');</code><br><code>do_action(\'sociality_likes\', bp_get_activity_id(), \'bp_activity\');</code>',
                         'type'    => 'select',
                         'options' => array(
                             'disabled' => __( 'Disabled', '@@text_domain' ),
@@ -255,7 +255,7 @@ if ( ! class_exists( 'Sociality_Settings' ) ) :
                     array(
                         'name'    => 'type_custom_portfolio',
                         'label'   => __( 'Custom Portfolio Type', '@@text_domain' ),
-                        'desc'    => '<code>do_action(\'sociality-likes\', get_the_ID(), \'portfolio\');</code>',
+                        'desc'    => '<code>do_action(\'sociality_likes\', get_the_ID(), \'portfolio\');</code>',
                         'type'    => 'select',
                         'options' => array(
                             'disabled' => __( 'Disabled', '@@text_domain' ),
@@ -269,7 +269,7 @@ if ( ! class_exists( 'Sociality_Settings' ) ) :
                     array(
                         'name'    => 'place',
                         'label'   => __( 'Place', '@@text_domain' ),
-                        'desc'    => __( 'If you need to place sharing buttons in custom place, call <code>do_action(\'sociality-sharing\');</code> in your plugin or theme code. Also available shortcode <code>[sociality_sharing]</code>', '@@text_domain' ),
+                        'desc'    => __( 'If you need to place sharing buttons in custom place, call <code>do_action(\'sociality_sharing\');</code> in your plugin or theme code. Also available shortcode <code>[sociality_sharing]</code>', '@@text_domain' ),
                         'type'    => 'multicheck',
                         'options' => array(
                             'after_content'  => 'After Content',
@@ -302,7 +302,7 @@ if ( ! class_exists( 'Sociality_Settings' ) ) :
                     array(
                         'name'    => 'place',
                         'label'   => __( 'Place', '@@text_domain' ),
-                        'desc'    => __( 'If you need to place bio block in custom place, call <code>do_action(\'sociality-author-bio\');</code> in your plugin or theme code. Also available shortcode <code>[sociality_author_bio]</code>', '@@text_domain' ),
+                        'desc'    => __( 'If you need to place bio block in custom place, call <code>do_action(\'sociality_author_bio\');</code> in your plugin or theme code. Also available shortcode <code>[sociality_author_bio]</code>', '@@text_domain' ),
                         'type'    => 'multicheck',
                         'options' => array(
                             'after_content'  => 'After Content',

@@ -41,7 +41,8 @@ if ( ! class_exists( 'Sociality_Sharing' ) ) :
          */
         private function init_actions() {
             // add action to show sharing buttons template.
-            add_action( 'sociality-sharing', array( $this, 'sharing_custom_action' ) );
+            add_action( 'sociality_sharing', array( $this, 'sharing_custom_action' ) );
+            add_action( 'sociality-sharing', array( $this, 'sharing_custom_action' ) ); // fallback.
 
             // add filter to show sharing buttons before or after content.
             add_filter( 'the_content', array( $this, 'sharing_content' ) );
