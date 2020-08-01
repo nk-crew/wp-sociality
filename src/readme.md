@@ -29,6 +29,13 @@ The manual installation method involves downloading our Sociality plugin and upl
 
 ## Changelog
 
+= 1.3.0 =
+
+* added sharing for Mix, WeChat, Weibo, Tencent Weibo
+* added target blank to author social links
+* added RTL support
+* removed StumbleUpon social share (use Mix instead)
+
 = 1.2.3 =
 
 * changed actions to use underscores instead of dashes, for example - new "sociality_sharing", old "sociality-sharing"
