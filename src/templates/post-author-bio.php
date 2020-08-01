@@ -56,7 +56,7 @@
                 <?php
                 foreach ( $sclt_social_links as $sclt_social_item ) {
                     ?>
-                    <a href="<?php echo esc_url( $sclt_social_item['url'] ); ?>">
+                    <a href="<?php echo esc_url( $sclt_social_item['url'] ); ?>" target="_blank" rel="noopener noreferrer">
                         <?php sociality()->svg_icons()->get_e( $sclt_social_item['icon'] ); ?>
                     </a>
                     <?php
