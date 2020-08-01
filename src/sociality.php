@@ -142,6 +142,8 @@ if ( ! class_exists( 'Sociality' ) ) :
          */
         public function enqueue_assets() {
             wp_enqueue_style( 'sociality', sociality()->plugin_url . 'assets/sociality.min.css', array(), '@@plugin_version' );
+            wp_style_add_data( 'sociality', 'rtl', 'replace' );
+            wp_style_add_data( 'sociality', 'suffix', '.min' );
 
             wp_enqueue_script( 'sociality', sociality()->plugin_url . 'assets/sociality.min.js', array( 'jquery' ), '@@plugin_version', true );
             wp_enqueue_script( 'sociality-share', sociality()->plugin_url . 'assets/sociality-share/sociality-share.min.js', array( 'jquery' ), '@@plugin_version', true );

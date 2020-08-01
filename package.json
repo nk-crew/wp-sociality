@@ -20,12 +20,12 @@
     "postinstall": "composer install"
   },
   "devDependencies": {
-    "@babel/node": "^7.8.7",
-    "@babel/plugin-proposal-object-rest-spread": "^7.9.5",
-    "@babel/plugin-transform-react-jsx": "^7.9.4",
-    "@babel/preset-env": "^7.9.5",
-    "@babel/register": "^7.9.0",
-    "@svgr/webpack": "^5.3.1",
+    "@babel/node": "^7.10.5",
+    "@babel/plugin-proposal-object-rest-spread": "^7.11.0",
+    "@babel/plugin-transform-react-jsx": "^7.10.4",
+    "@babel/preset-env": "^7.11.0",
+    "@babel/register": "^7.10.5",
+    "@svgr/webpack": "^5.4.0",
     "base64-inline-loader": "^1.1.1",
     "eslint-config-nk": "^0.0.17",
     "husky": "^3.1.0",
@@ -35,9 +35,9 @@
     "micromatch": "^4.0.2",
     "po2json": "^0.4.5",
     "stylelint-config-nk": "^0.0.10",
-    "wpeg": "^1.0.8"
+    "wpeg": "^1.0.12"
   },
   "dependencies": {
-    "@wordpress/base-styles": "^1.4.0"
+    "@wordpress/base-styles": "^2.0.1"
   }
 }

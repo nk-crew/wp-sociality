@@ -368,6 +368,8 @@ if ( ! class_exists( 'Sociality_Settings' ) ) :
         public function admin_settings_enqueue_assets() {
             // css.
             wp_enqueue_style( 'sociality-admin-settings', sociality()->plugin_url . 'assets/sociality-admin-settings.min.css', array(), '@@plugin_version' );
+            wp_style_add_data( 'sociality-admin-settings', 'rtl', 'replace' );
+            wp_style_add_data( 'sociality-admin-settings', 'suffix', '.min' );
 
             // js.
             wp_enqueue_script( 'sociality-admin-settings', sociality()->plugin_url . 'assets/sociality-admin-settings.min.js', array( 'jquery', 'jquery-ui-sortable' ), '@@plugin_version', true );
