@@ -2,7 +2,7 @@
 /**
  * Brand SVG Please
  *
- * @version 1.0.0
+ * @version 1.0.1
  * @link https://github.com/nk-o/brand-svg-please
  * @package bsp
  */
@@ -147,8 +147,10 @@ if ( ! class_exists( 'Brand_SVG_Please' ) ) :
             );
 
             if ( file_exists( $path ) ) {
-                // phpcs:ignore
-                $svg = file_get_contents( $path );
+                // We can't use file_get_contents in WordPress themes.
+                ob_start();
+                include $path;
+                $svg = ob_get_clean();
 
                 // Add extra attributes to SVG code.
                 // translators: %1$s - classname.
@@ -504,6 +506,7 @@ if ( ! class_exists( 'Brand_SVG_Please' ) ) :
                 'the-red-yeti'              => esc_html__( 'The Red Yeti', 'bsp' ),
                 'themeisle'                 => esc_html__( 'Themeisle', 'bsp' ),
                 'think-peaks'               => esc_html__( 'ThinkPeaks', 'bsp' ),
+                'tiktok'                    => esc_html__( 'TikTok', 'bsp' ),
                 'trade-federation'          => esc_html__( 'Trade Federation', 'bsp' ),
                 'trello'                    => esc_html__( 'Trello', 'bsp' ),
                 'tripadvisor'               => esc_html__( 'Tripadvisor', 'bsp' ),
@@ -534,6 +537,10 @@ if ( ! class_exists( 'Brand_SVG_Please' ) ) :
                 'vnv'                       => esc_html__( 'VNV', 'bsp' ),
                 'vuejs'                     => esc_html__( 'Vue.js', 'bsp' ),
                 'waze'                      => esc_html__( 'Waze', 'bsp' ),
+                'wechat'                    => array(
+                    'name' => esc_html__( 'WeChat', 'bsp' ),
+                    'keys' => array( 'weixin' ),
+                ),
                 'weebly'                    => esc_html__( 'Weebly', 'bsp' ),
                 'weibo'                     => esc_html__( 'Weibo', 'bsp' ),
                 'weixin'                    => esc_html__( 'Weixin', 'bsp' ),
