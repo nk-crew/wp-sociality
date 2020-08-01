@@ -151,10 +151,13 @@ if ( ! class_exists( 'Sociality_Settings' ) ) :
                 'whatsapp',
                 'viber',
                 'telegram',
-                'stumbleupon',
+                'mix',
                 'diaspora',
                 'line',
                 'renren',
+                'weibo',
+                'tencent-weibo',
+                'wechat',
             );
 
             foreach ( $sharing_brands as $k ) {

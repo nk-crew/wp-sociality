@@ -152,6 +152,7 @@ if ( ! class_exists( 'Sociality' ) ) :
                 'sociality',
                 'socialityData',
                 array(
+                    'site_url'   => get_site_url(),
                     'ajax_url'   => admin_url( 'admin-ajax.php' ),
                     'ajax_nonce' => wp_create_nonce( 'ajax-nonce' ),
                 )

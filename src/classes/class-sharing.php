@@ -40,6 +40,10 @@ if ( ! class_exists( 'Sociality_Sharing' ) ) :
          * Init actions.
          */
         private function init_actions() {
+            // Render sharing page for WeChat.
+            add_action( 'wp', array( $this, 'register_scripts' ) );
+            add_action( 'template_redirect', array( $this, 'wechat_share_render' ) );
+
             // add action to show sharing buttons template.
             add_action( 'sociality_sharing', array( $this, 'sharing_custom_action' ) );
             add_action( 'sociality-sharing', array( $this, 'sharing_custom_action' ) ); // fallback.
@@ -49,6 +53,67 @@ if ( ! class_exists( 'Sociality_Sharing' ) ) :
 
             // add shortcode.
             add_shortcode( 'sociality_sharing', array( $this, 'sharing_shortcode' ) );
+        }
+
+        /**
+         * Register scripts.
+         */
+        public function register_scripts() {
+            wp_register_style( 'sociality-share-wechat', sociality()->plugin_url . 'assets/sociality-share/sociality-share-wechat.min.css', array(), '@@plugin_version' );
+
+            wp_register_script( 'qrcode', sociality()->plugin_url . 'assets/vendor/qrcode/qrcode.min.js', array( 'jquery' ), '@@plugin_version', false );
+            wp_register_script( 'sociality-share-wechat', sociality()->plugin_url . 'assets/sociality-share/sociality-share-wechat.min.js', array( 'jquery' ), '@@plugin_version', false );
+        }
+
+        /**
+         * Render sharing page for WeChat.
+         */
+        public function wechat_share_render() {
+            // phpcs:ignore
+            if ( ! isset( $_GET['sociality_share_wechat'] ) || ! isset( $_GET['url'] ) ) {
+                return;
+            }
+
+            // phpcs:ignore
+            $share_url = $_GET['url'];
+
+            ?>
+            <!DOCTYPE html>
+            <html <?php language_attributes(); ?>>
+                <head>
+                    <title><?php echo esc_html__( 'Share to WeChat', '@@text_domain' ); ?></title>
+                    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+                    <?php wp_styles()->do_item( 'sociality-share-wechat' ); ?>
+                </head>
+                <body data-share-url="<?php echo esc_url( $share_url ); ?>">
+                    <h1>
+                        <?php echo esc_html__( 'Share to WeChat', '@@text_domain' ); ?>
+                    </h1>
+                    <noscript>
+                        <p><?php echo esc_html__( 'This page requires JavaScript to be enabled in your browser.', '@@text_domain' ); ?></p>
+                    </noscript>
+
+                    <div class="sociality-share-wechat-desktop">
+                        <p><?php echo wp_kses_post( __( '"Scan QR Code" in WeChat and tap <span class="sociality-share-wechat-share-how">···</span> to share.', '@@text_domain' ) ); ?></p>
+                        <div class="sociality-share-wechat-qrcode"></div>
+                    </div>
+                    <div class="sociality-share-wechat-mobile">
+                        <p><?php echo esc_html__( 'Copy the link and open WeChat to share.', '@@text_domain' ); ?></p>
+                        <input class="sociality-share-wechat-copy-url" readonly type="text">
+                        <span class="sociality-share-wechat-copied"><?php echo esc_html__( 'Copied!', '@@text_domain' ); ?></span>
+                        <a class="sociality-share-wechat-button" href="weixin://"><?php echo esc_html__( 'Open WeChat', '@@text_domain' ); ?></a>
+                    </div>
+
+                    <?php
+                    wp_scripts()->print_scripts( 'qrcode' );
+                    wp_scripts()->print_scripts( 'sociality-share-wechat' );
+                    ?>
+                </body>
+            </html>
+            <?php
+
+            exit;
         }
 
         /**

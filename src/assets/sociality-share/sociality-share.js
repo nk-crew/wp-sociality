@@ -7,6 +7,7 @@
 const {
     jQuery: $,
     location,
+    socialityData,
 } = window;
 
 const $document = $( document );
@@ -40,7 +41,7 @@ function dataToOptions( elem ) {
 }
 
 function template( tmpl, context, filter ) {
-    return tmpl.replace( /\{([^}]+)\}/g, ( m, key ) => {
+    return ( tmpl || '' ).replace( /\{([^}]+)\}/g, ( m, key ) => {
         // If key doesn't exists in the context we should keep template tag as is
         if ( key in context ) {
             return filter ? filter( context[ key ] ) : context[ key ];
@@ -243,10 +244,10 @@ const services = {
         popupWidth: 500,
         popupHeight: 550,
     },
-    stumbleupon: {
-        popupUrl: 'http://www.stumbleupon.com/submit?url={url}',
-        popupWidth: 500,
-        popupHeight: 550,
+    mix: {
+        popupUrl: 'https://mix.com/mixit?su=submit&url={url}',
+        popupWidth: 850,
+        popupHeight: 735,
     },
     diaspora: {
         popupUrl: 'https://share.diasporafoundation.org/?title={title}&url={url}',
@@ -263,10 +264,30 @@ const services = {
         popupWidth: 500,
         popupHeight: 550,
     },
+    wechat: {
+        popupUrl: `${ socialityData.site_url }?sociality_share_wechat=1&url={url}`,
+        popupWidth: 400,
+        popupHeight: 650,
+    },
+    weibo: {
+        popupUrl: 'http://service.weibo.com/share/share.php?url={url}&title={title}',
+        popupWidth: 650,
+        popupHeight: 320,
+    },
+    'tencent-weibo': {
+        popupUrl: 'http://v.t.qq.com/share/share.php?url={url}&title={title}',
+        popupWidth: 650,
+        popupHeight: 320,
+    },
 
     // Deprecated.
     google_plus: {
         popupUrl: 'https://plus.google.com/share?url={url}',
+        popupWidth: 500,
+        popupHeight: 550,
+    },
+    stumbleupon: {
+        popupUrl: 'http://www.stumbleupon.com/submit?url={url}',
         popupWidth: 500,
         popupHeight: 550,
     },

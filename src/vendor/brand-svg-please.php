@@ -545,7 +545,10 @@ if ( ! class_exists( 'Brand_SVG_Please' ) ) :
                     'keys' => array( 'weixin' ),
                 ),
                 'weebly'                    => esc_html__( 'Weebly', '@@text_domain' ),
-                'weibo'                     => esc_html__( 'Weibo', '@@text_domain' ),
+                'weibo'                     => array(
+                    'name' => esc_html__( 'Sina Weibo', '@@text_domain' ),
+                    'keys' => array( 'sina-weibo' ),
+                ),
                 'weixin'                    => esc_html__( 'Weixin', '@@text_domain' ),
                 'whatsapp'                  => esc_html__( 'WhatsApp', '@@text_domain' ),
                 'whmcs'                     => esc_html__( 'WHMCS', '@@text_domain' ),
