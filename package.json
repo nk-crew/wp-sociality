@@ -17,25 +17,26 @@
     "js-lint-fix": "eslint --ext .js --fix src/",
     "make-pot": "composer wp -- i18n make-pot ./src ./src/languages/sociality.pot --skip-audit --exclude=vendor,vendors,node_modules --headers='{\"Last-Translator\":\"nK\",\"Report-Msgid-Bugs-To\":\"https://github.com/nk-o/sociality/issues\"}'",
     "make-json": "po2json ./src/languages/sociality.pot ./src/languages/sociality.json --format=jed1.x --pretty --domain=@@text_domain",
+    "lint-staged": "lint-staged",
     "postinstall": "composer install"
   },
   "devDependencies": {
-    "@babel/node": "^7.10.5",
-    "@babel/plugin-proposal-object-rest-spread": "^7.11.0",
-    "@babel/plugin-transform-react-jsx": "^7.10.4",
-    "@babel/preset-env": "^7.11.0",
-    "@babel/register": "^7.10.5",
-    "@svgr/webpack": "^5.4.0",
+    "@babel/node": "^7.13.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.13.8",
+    "@babel/plugin-transform-react-jsx": "^7.12.17",
+    "@babel/preset-env": "^7.13.9",
+    "@babel/register": "^7.13.8",
+    "@svgr/webpack": "^5.5.0",
     "base64-inline-loader": "^1.1.1",
     "eslint-config-nk": "^0.0.17",
-    "husky": "^3.1.0",
+    "husky": "^5.1.3",
     "json-file": "^0.1.0",
-    "lint-staged": "^10.1.7",
-    "md5": "^2.2.1",
+    "lint-staged": "^10.5.4",
+    "md5": "^2.3.0",
     "micromatch": "^4.0.2",
     "po2json": "^0.4.5",
     "stylelint-config-nk": "^0.0.10",
-    "wpeg": "^1.0.12"
+    "wpeg": "^1.1.1"
   },
   "dependencies": {
     "@wordpress/base-styles": "^2.0.1"
