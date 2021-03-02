@@ -29,6 +29,11 @@ The manual installation method involves downloading our Sociality plugin and upl
 
 ## Changelog
 
+= 1.3.1 =
+
+* fixed usage of deprecated jQuery ready event
+* fixed Facebook counter api call error
+
 = 1.3.0 =
 
 * added sharing for Mix, WeChat, Weibo, Tencent Weibo
