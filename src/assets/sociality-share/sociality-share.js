@@ -59,10 +59,6 @@ function makeUrl( url, context ) {
  */
 const services = {
     facebook: {
-        counterUrl: 'https://graph.facebook.com/?id={url}',
-        convertNumber( data ) {
-            return data.share.share_count;
-        },
         popupUrl: 'https://www.facebook.com/sharer.php?t={title}&u={url}',
         popupWidth: 600,
         popupHeight: 359,
