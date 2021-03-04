@@ -29,6 +29,10 @@ The manual installation method involves downloading our Sociality plugin and upl
 
 ## Changelog
 
+= 1.3.2 =
+
+* tested with WordPress 5.7
+
 = 1.3.1 =
 
 * fixed usage of deprecated jQuery ready event
