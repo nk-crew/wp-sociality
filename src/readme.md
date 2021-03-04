@@ -3,7 +3,7 @@
 * Contributors: nko
 * Tags: social, share, post author block
 * Requires at least: 4.0.0
-* Tested up to: 5.4
+* Tested up to: 5.7
 * Requires PHP: 5.5.9
 * Stable tag: @@plugin_version
 * License: GPLv2 or later
