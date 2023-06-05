@@ -41,7 +41,7 @@
     -->
 
     <!-- Include sniffs for PHP cross-version compatibility. -->
-    <config name="testVersion" value="5.5-"/>
+    <config name="testVersion" value="7.2-"/>
     <rule ref="PHPCompatibilityWP"/>
 
     <!-- Include the WordPress ruleset, with select exclusions. -->
@@ -65,8 +65,8 @@
     #############################################################################
     -->
 
-    <!-- Set the minimum supported WP version to WP 4.9. -->
-    <config name="minimum_supported_wp_version" value="4.9"/>
+    <!-- Set the minimum supported WP version to WP 5.6. -->
+    <config name="minimum_supported_wp_version" value="5.6"/>
 
     <!-- Prevent error about filename with Class -->
     <rule ref="WordPress.Files.FileName">

@@ -133,7 +133,7 @@ if ( ! class_exists( 'Sociality' ) ) :
             $data                        = get_plugin_data( __FILE__ );
             $this->plugin_name           = $data['Name'];
             $this->plugin_version        = $data['Version'];
-            $this->plugin_slug           = plugin_basename( __FILE__, '.php' );
+            $this->plugin_slug           = plugin_basename( __FILE__ );
             $this->plugin_name_sanitized = basename( __FILE__, '.php' );
         }
 
