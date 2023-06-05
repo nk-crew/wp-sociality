@@ -29,6 +29,12 @@ The manual installation method involves downloading our Sociality plugin and upl
 
 ## Changelog
 
+= 1.3.3 =
+
+* tested with WordPress 6.2
+* minimum PHP version changed to 7.2
+* changed Twitter sharing window size
+
 = 1.3.2 =
 
 * tested with WordPress 5.7
