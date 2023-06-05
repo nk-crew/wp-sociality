@@ -66,8 +66,8 @@ const services = {
     twitter: {
         counters: false,
         popupUrl: 'https://twitter.com/intent/tweet?text={text}&url={url}',
-        popupWidth: 600,
-        popupHeight: 250,
+        popupWidth: 670,
+        popupHeight: 350,
         click() {
             // Add colon to improve readability
             if ( ! /[.?:\-–—]\s*$/.test( this.options.title ) ) {
