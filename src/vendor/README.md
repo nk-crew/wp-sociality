@@ -30,7 +30,7 @@ if ( Brand_SVG_Please::exists( 'facebook' ) ) {
 Auto:
 
 ```php
-Brand_SVG_Please::print( 'facebook' );
+Brand_SVG_Please::get_e( 'facebook' );
 ```
 
 Manual:
@@ -50,4 +50,4 @@ $brands = Brand_SVG_Please::get_all_brands();
 
 ## Thanks
 
-Thanks to FontAwesome team for the great SVG icons <https://github.com/FortAwesome/Font-Awesome/tree/master/svgs/brands>
+Thanks to FontAwesome team for the great SVG icons <https://github.com/FortAwesome/Font-Awesome/tree/6.x/free/svgs/brands>
