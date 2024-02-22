@@ -73,9 +73,9 @@ if ( ! class_exists( 'Sociality_Author_Bio' ) ) :
         /**
          * BIO before/after content.
          *
-         * @param String $content - post content.
+         * @param string $content - post content.
          *
-         * @return String
+         * @return string
          */
         public function bio_content( $content ) {
             $place = sociality()->settings()->get_option( 'place', 'sociality_author_bio', null );
@@ -141,7 +141,7 @@ if ( ! class_exists( 'Sociality_Author_Bio' ) ) :
         /**
          * Extra settings in user profile
          *
-         * @param Object $user - user data.
+         * @param object $user - user data.
          */
         public function print_admin_author_settings( $user ) {
             $this->admin_author_settings_enqueue_assets();
@@ -190,7 +190,7 @@ if ( ! class_exists( 'Sociality_Author_Bio' ) ) :
         /**
          * Save Settings.
          *
-         * @param Number $user_id - used ID.
+         * @param number $user_id - used ID.
          */
         public function save_admin_author_settings( $user_id ) {
             if ( ! current_user_can( 'edit_user', $user_id ) ) {

@@ -1,6 +1,4 @@
-const {
-    jQuery: $,
-} = window;
+const { jQuery: $ } = window;
 
 // Sortable multiple checkboxes.
-$( 'fieldset.sociality-sortable' ).sortable();
+$('fieldset.sociality-sortable').sortable();

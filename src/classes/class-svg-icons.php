@@ -20,7 +20,7 @@ if ( ! class_exists( 'Sociality_SVG_Icons' ) ) :
         /**
          * Data for SVG icon.
          *
-         * @var Array
+         * @var array
          */
         private $svg_data = array(
             'class' => 'sociality-icon',
@@ -55,9 +55,9 @@ if ( ! class_exists( 'Sociality_SVG_Icons' ) ) :
         /**
          * Get Sharing Buttons
          *
-         * @param String $name - brand name.
+         * @param string $name - brand name.
          *
-         * @return String
+         * @return string
          */
         public function get( $name ) {
             return Brand_SVG_Please::get( self::fallback_icon_name( $name ), $this->svg_data );
@@ -66,7 +66,7 @@ if ( ! class_exists( 'Sociality_SVG_Icons' ) ) :
         /**
          * Output Sharing Buttons
          *
-         * @param String $name - brand name.
+         * @param string $name - brand name.
          */
         public function get_e( $name ) {
             Brand_SVG_Please::get_e( self::fallback_icon_name( $name ), $this->svg_data );
@@ -75,9 +75,9 @@ if ( ! class_exists( 'Sociality_SVG_Icons' ) ) :
         /**
          * Get the SVG string for a given icon.
          *
-         * @param String $name - brand name.
+         * @param string $name - brand name.
          *
-         * @return String
+         * @return string
          */
         public function get_name( $name ) {
             return Brand_SVG_Please::get_name( self::fallback_icon_name( $name ) );
@@ -86,9 +86,9 @@ if ( ! class_exists( 'Sociality_SVG_Icons' ) ) :
         /**
          * Check if SVG icon exists.
          *
-         * @param String $name - brand name.
+         * @param string $name - brand name.
          *
-         * @return Boolean
+         * @return boolean
          */
         public function exists( $name ) {
             return Brand_SVG_Please::exists( self::fallback_icon_name( $name ) );
@@ -97,9 +97,9 @@ if ( ! class_exists( 'Sociality_SVG_Icons' ) ) :
         /**
          * Get all available brands.
          *
-         * @param Boolean $get_svg - get SVG and insert it inside array.
+         * @param boolean $get_svg - get SVG and insert it inside array.
          *
-         * @return Array
+         * @return array
          */
         public function get_all_brands( $get_svg = false ) {
             return Brand_SVG_Please::get_all_brands( $get_svg, $this->svg_data );
@@ -108,12 +108,18 @@ if ( ! class_exists( 'Sociality_SVG_Icons' ) ) :
         /**
          * Replace old Socicon classname.
          *
-         * @param String $name - icon name.
+         * @param string $name - icon name.
          *
-         * @return Array
+         * @return array
          */
         public function fallback_icon_name( $name ) {
-            return preg_replace( '/^socicon-/', '', $name );
+            $name = preg_replace( '/^socicon-/', '', $name );
+
+            if ( 'twitter' === $name ) {
+                $name = 'x-twitter';
+            }
+
+            return $name;
         }
     }
 endif;
