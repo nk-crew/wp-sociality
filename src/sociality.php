@@ -79,7 +79,6 @@ if ( ! class_exists( 'Sociality' ) ) :
         public static function instance() {
             if ( is_null( self::$instance ) ) {
                 self::$instance = new self();
-                self::$instance->init_text_domain();
                 self::$instance->init_options();
                 self::$instance->init_hooks();
 
@@ -121,6 +120,7 @@ if ( ! class_exists( 'Sociality' ) ) :
          * Init hooks.
          */
         public function init_hooks() {
+            add_action( 'init', array( $this, 'init_text_domain' ) );
             add_action( 'admin_init', array( $this, 'admin_init' ) );
             add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_assets' ) );
         }
