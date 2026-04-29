@@ -107,7 +107,7 @@ if ( ! class_exists( 'Sociality_Settings_API' ) ) :
 
                 if ( isset( $section['desc'] ) && ! empty( $section['desc'] ) ) {
                     $section['desc'] = '<div class="inside">' . $section['desc'] . '</div>';
-                    $callback        = function () use ( $section ) {
+                    $callback        = function ( $_args = array() ) use ( $section ) {
                         echo $section['desc'];
                     };
                 } elseif ( isset( $section['callback'] ) ) {
