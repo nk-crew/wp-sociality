@@ -29,6 +29,11 @@ The manual installation method involves downloading our Sociality plugin and upl
 
 ## Changelog
 
+= 1.3.6 =
+
+* added WordPress 7.0 compatibility
+* fixed usage of deprecated PHP and jQuery functions
+
 = 1.3.5 =
 
 * checked compatibility with WordPress 6.7
