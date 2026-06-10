@@ -6,8 +6,6 @@
  */
 const { jQuery: $, location, socialityData } = window;
 
-const $document = $(document);
-
 const prefix = 'sociality-share';
 const protocol = location.protocol === 'https:' ? 'https:' : 'http:';
 
@@ -619,6 +617,6 @@ $.fn.socialityShare.defaults = {
 /**
  * Auto initialization
  */
-$document.on(`ready.${prefix}`, () => {
+$(() => {
   $(`.${prefix}`).socialityShare();
 });
