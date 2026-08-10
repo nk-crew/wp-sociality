@@ -11,3 +11,7 @@
 *.svg   text eol=lf
 *.txt   text eol=lf
 *.yml   text eol=lf
+
+# Third-party code, excluded from the language statistics.
+src/vendor/**        linguist-vendored=true
+src/assets/vendor/** -diff linguist-vendored=true
