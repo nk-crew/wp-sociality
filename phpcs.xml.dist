@@ -41,7 +41,11 @@
     -->
 
     <!-- Include sniffs for PHP cross-version compatibility. -->
-    <config name="testVersion" value="7.2-"/>
+    <config name="testVersion" value="7.4-"/>
+
+	<!-- WPCS 2.3.0 sniffs abort on PHP 8.1+ deprecations; silencing them lets the
+	     checks actually run. Same workaround as the sibling plugins. -->
+	<ini name="error_reporting" value="E_ALL &amp; ~E_DEPRECATED"/>
     <rule ref="PHPCompatibilityWP"/>
 
     <!-- Include the WordPress ruleset, with select exclusions. -->

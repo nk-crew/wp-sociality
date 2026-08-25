@@ -298,14 +298,14 @@ const counters = {
     const deferred = $.Deferred();
     const jsonUrl = options.counterUrl && makeUrl(options.counterUrl, { url });
 
-    if (jsonUrl && $.isFunction(options.counter)) {
+    if (jsonUrl && typeof options.counter === 'function') {
       options.counter(jsonUrl, deferred);
     } else if (options.counterUrl) {
       $.getJSON(jsonUrl)
         .done((data) => {
           try {
             let number = data;
-            if ($.isFunction(options.convertNumber)) {
+            if (typeof options.convertNumber === 'function') {
               number = options.convertNumber(data);
             }
             deferred.resolve(number);
@@ -440,7 +440,7 @@ Button.prototype = {
   click(e) {
     const { options } = this;
     let process = true;
-    if ($.isFunction(options.click)) {
+    if (typeof options.click === 'function') {
       process = options.click.call(this, e);
     }
     if (process) {

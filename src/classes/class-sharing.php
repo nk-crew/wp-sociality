@@ -70,12 +70,12 @@ if ( ! class_exists( 'Sociality_Sharing' ) ) :
          */
         public function wechat_share_render() {
             // phpcs:ignore
-            if ( ! isset( $_GET['sociality_share_wechat'] ) || ! isset( $_GET['url'] ) ) {
+            if ( ! isset( $_GET['sociality_share_wechat'] ) || ! isset( $_GET['url'] ) || ! is_string( $_GET['url'] ) ) {
                 return;
             }
 
             // phpcs:ignore
-            $share_url = $_GET['url'];
+            $share_url = esc_url_raw( wp_unslash( $_GET['url'] ) );
 
             ?>
             <!DOCTYPE html>
