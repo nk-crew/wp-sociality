@@ -599,9 +599,9 @@ if ( ! class_exists( 'Sociality_Settings_API' ) ) :
                 else {
                     $('.nav-tab-wrapper a:first').addClass('nav-tab-active');
                 }
-                $('.nav-tab-wrapper a').click(function(evt) {
+                $('.nav-tab-wrapper a').on('click', function(evt) {
                     $('.nav-tab-wrapper a').removeClass('nav-tab-active');
-                    $(this).addClass('nav-tab-active').blur();
+                    $(this).addClass('nav-tab-active').trigger('blur');
                     var clicked_group = $(this).attr('href');
                     if (typeof(localStorage) != 'undefined' ) {
                         localStorage.setItem("activetab", $(this).attr('href'));
@@ -627,7 +627,7 @@ if ( ! class_exists( 'Sociality_Settings_API' ) ) :
 
                     file_frame.on('select', function () {
                         attachment = file_frame.state().get('selection').first().toJSON();
-                        self.prev('.wpsa-url').val(attachment.url).change();
+                        self.prev('.wpsa-url').val(attachment.url).trigger('change');
                     });
 
                     // Finally, open the modal

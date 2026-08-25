@@ -41,7 +41,8 @@
     -->
 
     <!-- Include sniffs for PHP cross-version compatibility. -->
-    <config name="testVersion" value="7.2-"/>
+    <config name="testVersion" value="7.4-"/>
+
     <rule ref="PHPCompatibilityWP"/>
 
     <!-- Include the WordPress ruleset, with select exclusions. -->
@@ -56,6 +57,11 @@
 
     <!-- Disallow tabs -->
     <rule ref="Generic.WhiteSpace.DisallowTabIndent"/>
+
+    <!-- The entry file has to hold both the bootstrap class and its accessor: the class reads its own paths from __FILE__. -->
+    <rule ref="Universal.Files.SeparateFunctionsFromOO">
+        <exclude-pattern>/src/sociality\.php$</exclude-pattern>
+    </rule>
 
 
     <!--

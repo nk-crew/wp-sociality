@@ -233,11 +233,11 @@ if ( ! class_exists( 'Sociality_Likes' ) ) :
             $name = "_{$post_type}{$name}";
 
             if ( $this->is_comment( $post_type ) ) {
-                $result = get_comment_meta( $post_id, $name );
+                $result = get_comment_meta( $post_id, $name, false );
             } elseif ( $this->is_activity( $post_type ) && function_exists( 'bp_activity_get_meta' ) ) {
                 $result = bp_activity_get_meta( $post_id, $name );
             } else {
-                $result = get_post_meta( $post_id, $name );
+                $result = get_post_meta( $post_id, $name, false );
             }
 
             if ( is_array( $result ) && count( $result ) ) {
@@ -303,34 +303,32 @@ if ( ! class_exists( 'Sociality_Likes' ) ) :
                     $likes_count += 2;
                 } elseif ( 1 === $is_user_post_liked ) {
                     $post_liked = 0;
-                    $likes_count--;
+                    --$likes_count;
                 } else {
                     $post_liked = 1;
-                    $likes_count++;
+                    ++$likes_count;
                 }
 
                 // thumb down.
             } elseif ( 'thumb-down' === $action ) {
                 if ( -1 === $is_user_post_liked ) {
                     $post_liked = 0;
-                    $likes_count++;
+                    ++$likes_count;
                 } elseif ( 1 === $is_user_post_liked ) {
                     $post_liked   = -1;
                     $likes_count -= 2;
                 } else {
                     $post_liked = -1;
-                    $likes_count--;
+                    --$likes_count;
                 }
 
                 // like/dislike.
+            } elseif ( $is_user_post_liked ) {
+                $post_liked = 0;
+                --$likes_count;
             } else {
-                if ( $is_user_post_liked ) {
-                    $post_liked = 0;
-                    $likes_count--;
-                } else {
-                    $post_liked = 1;
-                    $likes_count++;
-                }
+                $post_liked = 1;
+                ++$likes_count;
             }
 
             $this->user_post_like( $post_liked, $post_id, $post_type );

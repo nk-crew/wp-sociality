@@ -12,7 +12,7 @@ if (isMobile) {
   $('.sociality-share-wechat-copy-url')
     .val(shareURL)
     .on('focus', function () {
-      $(this).select();
+      $(this).trigger('select');
 
       try {
         const successful = document.execCommand('copy');

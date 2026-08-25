@@ -64,7 +64,7 @@ if ( ! class_exists( 'Sociality_Author_Bio' ) ) :
          */
         public function bio_custom_action() {
             $place = sociality()->settings()->get_option( 'place', 'sociality_author_bio', null );
-            if ( is_array( $place ) && isset( $place['custom_action'] ) || null === $place ) {
+            if ( ( is_array( $place ) && isset( $place['custom_action'] ) ) || null === $place ) {
                 // phpcs:ignore
                 echo $this->print_author_bio();
             }
@@ -198,7 +198,23 @@ if ( ! class_exists( 'Sociality_Author_Bio' ) ) :
             }
 
             // phpcs:ignore
-            update_user_meta( $user_id, 'user_sociality_links', $_POST['user_sociality_links'] );
+            $raw_links = isset( $_POST['user_sociality_links'] ) ? wp_unslash( $_POST['user_sociality_links'] ) : array();
+            $links     = array();
+
+            if ( is_array( $raw_links ) ) {
+                foreach ( $raw_links as $raw_link ) {
+                    if ( ! is_array( $raw_link ) ) {
+                        continue;
+                    }
+
+                    $links[] = array(
+                        'icon' => isset( $raw_link['icon'] ) ? sanitize_text_field( $raw_link['icon'] ) : '',
+                        'url'  => isset( $raw_link['url'] ) && is_string( $raw_link['url'] ) ? esc_url_raw( $raw_link['url'] ) : '',
+                    );
+                }
+            }
+
+            update_user_meta( $user_id, 'user_sociality_links', $links );
         }
     }
 endif;

@@ -70,12 +70,12 @@ if ( ! class_exists( 'Sociality_Sharing' ) ) :
          */
         public function wechat_share_render() {
             // phpcs:ignore
-            if ( ! isset( $_GET['sociality_share_wechat'] ) || ! isset( $_GET['url'] ) ) {
+            if ( ! isset( $_GET['sociality_share_wechat'] ) || ! isset( $_GET['url'] ) || ! is_string( $_GET['url'] ) ) {
                 return;
             }
 
             // phpcs:ignore
-            $share_url = $_GET['url'];
+            $share_url = esc_url_raw( wp_unslash( $_GET['url'] ) );
 
             ?>
             <!DOCTYPE html>
@@ -121,7 +121,7 @@ if ( ! class_exists( 'Sociality_Sharing' ) ) :
          */
         public function sharing_custom_action() {
             $place = sociality()->settings()->get_option( 'place', 'sociality_sharing', null );
-            if ( is_array( $place ) && isset( $place['custom_action'] ) || null === $place ) {
+            if ( ( is_array( $place ) && isset( $place['custom_action'] ) ) || null === $place ) {
                 // phpcs:ignore
                 echo $this->print_sharing();
             }
