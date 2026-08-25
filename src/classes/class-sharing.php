@@ -121,7 +121,7 @@ if ( ! class_exists( 'Sociality_Sharing' ) ) :
          */
         public function sharing_custom_action() {
             $place = sociality()->settings()->get_option( 'place', 'sociality_sharing', null );
-            if ( is_array( $place ) && isset( $place['custom_action'] ) || null === $place ) {
+            if ( ( is_array( $place ) && isset( $place['custom_action'] ) ) || null === $place ) {
                 // phpcs:ignore
                 echo $this->print_sharing();
             }

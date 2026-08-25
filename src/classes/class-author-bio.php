@@ -64,7 +64,7 @@ if ( ! class_exists( 'Sociality_Author_Bio' ) ) :
          */
         public function bio_custom_action() {
             $place = sociality()->settings()->get_option( 'place', 'sociality_author_bio', null );
-            if ( is_array( $place ) && isset( $place['custom_action'] ) || null === $place ) {
+            if ( ( is_array( $place ) && isset( $place['custom_action'] ) ) || null === $place ) {
                 // phpcs:ignore
                 echo $this->print_author_bio();
             }
