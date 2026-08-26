@@ -29,6 +29,13 @@ The manual installation method involves downloading our Sociality plugin and upl
 
 ## Changelog
 
+= 1.3.7 =
+
+* added WordPress 7.1 compatibility
+* fixed a white screen any visitor could trigger by passing an array in the WeChat share URL
+* fixed profile saves warning and clearing the social links of users who had none
+* raised the minimum PHP requirement to 7.4
+
 = 1.3.6 =
 
 * added WordPress 7.0 compatibility
