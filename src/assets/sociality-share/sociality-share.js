@@ -154,18 +154,8 @@ const services = {
     popupWidth: 500,
     popupHeight: 550,
   },
-  skype: {
-    popupUrl: 'https://web.skype.com/share?url={url}&text={text}',
-    popupWidth: 500,
-    popupHeight: 550,
-  },
   buffer: {
     popupUrl: 'https://buffer.com/add?url={url}&text={text}',
-    popupWidth: 500,
-    popupHeight: 550,
-  },
-  pocket: {
-    popupUrl: 'https://getpocket.com/save?url={url}',
     popupWidth: 500,
     popupHeight: 550,
   },
@@ -181,11 +171,6 @@ const services = {
   },
   flipboard: {
     popupUrl: 'https://share.flipboard.com/bookmarklet/popout?v=2&title={text}&url={url}',
-    popupWidth: 500,
-    popupHeight: 550,
-  },
-  delicious: {
-    popupUrl: 'https://del.icio.us/post?url={url}&title={title}',
     popupWidth: 500,
     popupHeight: 550,
   },
@@ -259,23 +244,6 @@ const services = {
     popupUrl: 'http://service.weibo.com/share/share.php?url={url}&title={title}',
     popupWidth: 650,
     popupHeight: 320,
-  },
-  'tencent-weibo': {
-    popupUrl: 'http://v.t.qq.com/share/share.php?url={url}&title={title}',
-    popupWidth: 650,
-    popupHeight: 320,
-  },
-
-  // Deprecated.
-  google_plus: {
-    popupUrl: 'https://plus.google.com/share?url={url}',
-    popupWidth: 500,
-    popupHeight: 550,
-  },
-  stumbleupon: {
-    popupUrl: 'http://www.stumbleupon.com/submit?url={url}',
-    popupWidth: 500,
-    popupHeight: 550,
   },
 };
 

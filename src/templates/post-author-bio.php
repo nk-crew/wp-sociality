@@ -30,7 +30,7 @@
         <h4 class="sociality-author-bio-name">
             <a href="<?php echo esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ); ?>" rel="author">
                 <?php
-                echo get_the_author();
+                echo esc_html( get_the_author() );
                 ?>
             </a>
         </h4>

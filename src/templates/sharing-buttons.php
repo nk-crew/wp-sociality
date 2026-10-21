@@ -35,6 +35,11 @@ if ( empty( $sclt_icons ) ) {
                 continue;
             }
 
+            // Retired services may still be listed in saved settings.
+            if ( in_array( sociality()->svg_icons()->fallback_icon_name( $sclt_icon ), array( 'pocket', 'skype', 'delicious', 'tencent-weibo', 'stumbleupon', 'google-plus', 'google_plus' ), true ) ) {
+                continue;
+            }
+
             // translators: s - social brand name.
             $sclt_link_title = sprintf( __( 'Share page on %s', '@@text_domain' ), sociality()->svg_icons()->get_name( $sclt_icon ) );
 
