@@ -74,8 +74,13 @@ if ( ! class_exists( 'Sociality_Sharing' ) ) :
                 return;
             }
 
+            // Only URLs of this site, so the page cannot advertise foreign links.
             // phpcs:ignore
-            $share_url = esc_url_raw( wp_unslash( $_GET['url'] ) );
+            $share_url = wp_validate_redirect( esc_url_raw( wp_unslash( $_GET['url'] ) ), '' );
+
+            if ( ! $share_url ) {
+                return;
+            }
 
             ?>
             <!DOCTYPE html>
@@ -83,6 +88,15 @@ if ( ! class_exists( 'Sociality_Sharing' ) ) :
                 <head>
                     <title><?php echo esc_html__( 'Share to WeChat', '@@text_domain' ); ?></title>
                     <meta name="viewport" content="width=device-width, initial-scale=1">
+                    <?php
+                    // wp_robots() exists since WP 5.7.
+                    if ( function_exists( 'wp_robots' ) ) {
+                        add_filter( 'wp_robots', 'wp_robots_no_robots' );
+                        wp_robots();
+                    } else {
+                        echo "<meta name='robots' content='noindex, follow' />\n";
+                    }
+                    ?>
 
                     <?php wp_styles()->do_item( 'sociality-share-wechat' ); ?>
                 </head>

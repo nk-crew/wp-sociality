@@ -136,13 +136,10 @@ if ( ! class_exists( 'Sociality_Settings' ) ) :
                 'linkedin',
                 'mix',
                 'tumblr',
-                'skype',
                 'buffer',
-                'pocket',
                 'xing',
                 'reddit',
                 'flipboard',
-                'delicious',
                 'amazon',
                 'digg',
                 'evernote',
@@ -156,7 +153,6 @@ if ( ! class_exists( 'Sociality_Settings' ) ) :
                 'line',
                 'renren',
                 'weibo',
-                'tencent-weibo',
                 'wechat',
             );
 

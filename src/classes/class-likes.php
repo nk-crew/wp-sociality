@@ -264,30 +264,88 @@ if ( ! class_exists( 'Sociality_Likes' ) ) :
                 update_comment_meta( $post_id, $name, $value );
             } elseif ( $this->is_activity( $post_type ) && function_exists( 'bp_activity_update_meta' ) ) {
                 bp_activity_update_meta( $post_id, $name, $value );
+            } else {
+                update_post_meta( $post_id, $name, $value );
+            }
+        }
+
+        /**
+         * Check that the liked object exists and is public.
+         *
+         * @param int    $post_id - object ID.
+         * @param string $post_type - like type key.
+         *
+         * @return boolean
+         */
+        public function is_likeable_object( $post_id, $post_type ) {
+            if ( $this->is_comment( $post_type ) ) {
+                $comment = get_comment( $post_id );
+
+                return $comment && '1' === (string) $comment->comment_approved && $this->is_post_public( $comment->comment_post_ID );
             }
 
-            update_post_meta( $post_id, $name, $value );
+            if ( $this->is_activity( $post_type ) ) {
+                if ( ! class_exists( 'BP_Activity_Activity' ) ) {
+                    return false;
+                }
+
+                $activity = new BP_Activity_Activity( $post_id );
+
+                return ! empty( $activity->id ) && empty( $activity->is_spam ) && empty( $activity->hide_sitewide );
+            }
+
+            return $this->is_post_public( $post_id );
+        }
+
+        /**
+         * Check that a post exists and is publicly viewable.
+         *
+         * @param int $post_id - post ID.
+         *
+         * @return boolean
+         */
+        public function is_post_public( $post_id ) {
+            $post = get_post( $post_id );
+
+            if ( ! $post ) {
+                return false;
+            }
+
+            // is_post_publicly_viewable() exists since WP 5.7.
+            if ( function_exists( 'is_post_publicly_viewable' ) ) {
+                return is_post_publicly_viewable( $post );
+            }
+
+            return 'publish' === $post->post_status && is_post_type_viewable( $post->post_type );
         }
 
         /**
          * AJAX Post Like.
          */
         public function ajax_post_like_action() {
-            // Security.
-            $nonce = isset( $_REQUEST['nonce'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['nonce'] ) ) : 0;
+            // Security. Anonymous visitors get no nonce check: their uid-0 nonce is shared
+            // and goes stale in page caches, so the object checks below are their guard.
+            if ( is_user_logged_in() ) {
+                $nonce = isset( $_REQUEST['nonce'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['nonce'] ) ) : 0;
 
-            if ( ! wp_verify_nonce( $nonce, 'ajax-nonce' ) ) {
-                die( 'Nope!' );
+                if ( ! wp_verify_nonce( $nonce, 'ajax-nonce' ) ) {
+                    die( 'Nope!' );
+                }
             }
 
-            // phpcs:disable
-            $post_id   = isset( $_REQUEST['post_id'] ) && is_numeric( $_REQUEST['post_id'] ) ? $_REQUEST['post_id'] : '';
-            $post_type = isset( $_REQUEST['post_type'] ) ? $_REQUEST['post_type'] : '';
-            $action    = isset( $_REQUEST['like_action'] ) ? $_REQUEST['like_action'] : '';
+            // phpcs:disable WordPress.Security.NonceVerification.Recommended
+            $post_id   = isset( $_REQUEST['post_id'] ) ? absint( $_REQUEST['post_id'] ) : 0;
+            $post_type = isset( $_REQUEST['post_type'] ) ? sanitize_key( $_REQUEST['post_type'] ) : '';
+            $action    = isset( $_REQUEST['like_action'] ) ? sanitize_key( $_REQUEST['like_action'] ) : '';
             // phpcs:enable
 
-            if ( ! $post_id ) {
-                exit();
+            if (
+                ! $post_id
+                || ! in_array( $action, array( 'heart', 'thumb-up', 'thumb-down' ), true )
+                || ! in_array( $this->get_like_type( $post_type ), array( 'heart', 'thumbs' ), true )
+                || ! $this->is_likeable_object( $post_id, $post_type )
+            ) {
+                die( 'Nope!' );
             }
 
             // Get plugin options.
