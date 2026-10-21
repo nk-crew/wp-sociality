@@ -297,16 +297,12 @@ if ( ! class_exists( 'Sociality_Likes' ) ) :
                     return false;
                 }
 
-                if ( ! $user_id ) {
-                    return empty( $activity->hide_sitewide );
-                }
-
                 // bp_activity_user_can_read() exists since BuddyPress 3.0.
-                if ( function_exists( 'bp_activity_user_can_read' ) ) {
+                if ( $user_id && function_exists( 'bp_activity_user_can_read' ) ) {
                     return bp_activity_user_can_read( $activity, $user_id );
                 }
 
-                return true;
+                return empty( $activity->hide_sitewide );
             }
 
             return $this->is_post_readable( $post_id );
