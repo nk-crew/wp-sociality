@@ -66,6 +66,34 @@ if ( ! class_exists( 'Sociality_Sharing' ) ) :
         }
 
         /**
+         * Check that a URL points to this site: same host as home_url(), or a path on it.
+         *
+         * @param string $url - URL to check.
+         *
+         * @return boolean
+         */
+        public function is_own_url( $url ) {
+            if ( ! $url ) {
+                return false;
+            }
+
+            $parts = wp_parse_url( $url );
+
+            if ( ! $parts ) {
+                return false;
+            }
+
+            if ( isset( $parts['host'] ) ) {
+                $home_host = wp_parse_url( home_url(), PHP_URL_HOST );
+
+                return isset( $parts['scheme'] ) && in_array( strtolower( $parts['scheme'] ), array( 'http', 'https' ), true ) && $home_host && strtolower( $parts['host'] ) === strtolower( $home_host );
+            }
+
+            // A path on this site. "//host" and "/\host" are foreign hosts to a browser.
+            return ! isset( $parts['scheme'] ) && '/' === $url[0] && ! in_array( substr( $url, 1, 1 ), array( '/', '\\' ), true );
+        }
+
+        /**
          * Render sharing page for WeChat.
          */
         public function wechat_share_render() {
@@ -75,10 +103,11 @@ if ( ! class_exists( 'Sociality_Sharing' ) ) :
             }
 
             // Only URLs of this site, so the page cannot advertise foreign links.
+            // wp_validate_redirect() is not used: it trusts hosts other plugins add to allowed_redirect_hosts.
             // phpcs:ignore
-            $share_url = wp_validate_redirect( esc_url_raw( wp_unslash( $_GET['url'] ) ), '' );
+            $share_url = esc_url_raw( wp_unslash( $_GET['url'] ) );
 
-            if ( ! $share_url ) {
+            if ( ! $this->is_own_url( $share_url ) ) {
                 return;
             }
 

@@ -36,7 +36,7 @@ if ( empty( $sclt_icons ) ) {
             }
 
             // Retired services may still be listed in saved settings.
-            if ( in_array( sociality()->svg_icons()->fallback_icon_name( $sclt_icon ), array( 'pocket', 'skype', 'delicious', 'tencent-weibo' ), true ) ) {
+            if ( in_array( sociality()->svg_icons()->fallback_icon_name( $sclt_icon ), array( 'pocket', 'skype', 'delicious', 'tencent-weibo', 'stumbleupon', 'google-plus', 'google_plus' ), true ) ) {
                 continue;
             }
 

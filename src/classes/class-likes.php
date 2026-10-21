@@ -270,7 +270,8 @@ if ( ! class_exists( 'Sociality_Likes' ) ) :
         }
 
         /**
-         * Check that the liked object exists and is public.
+         * Check that the liked object exists and the current visitor may read it.
+         * Anonymous visitors may like only public objects.
          *
          * @param int    $post_id - object ID.
          * @param string $post_type - like type key.
@@ -281,7 +282,7 @@ if ( ! class_exists( 'Sociality_Likes' ) ) :
             if ( $this->is_comment( $post_type ) ) {
                 $comment = get_comment( $post_id );
 
-                return $comment && '1' === (string) $comment->comment_approved && $this->is_post_public( $comment->comment_post_ID );
+                return $comment && '1' === (string) $comment->comment_approved && $this->is_post_readable( $comment->comment_post_ID );
             }
 
             if ( $this->is_activity( $post_type ) ) {
@@ -290,11 +291,42 @@ if ( ! class_exists( 'Sociality_Likes' ) ) :
                 }
 
                 $activity = new BP_Activity_Activity( $post_id );
+                $user_id  = get_current_user_id();
 
-                return ! empty( $activity->id ) && empty( $activity->is_spam ) && empty( $activity->hide_sitewide );
+                if ( empty( $activity->id ) || ! empty( $activity->is_spam ) ) {
+                    return false;
+                }
+
+                if ( ! $user_id ) {
+                    return empty( $activity->hide_sitewide );
+                }
+
+                // bp_activity_user_can_read() exists since BuddyPress 3.0.
+                if ( function_exists( 'bp_activity_user_can_read' ) ) {
+                    return bp_activity_user_can_read( $activity, $user_id );
+                }
+
+                return true;
             }
 
-            return $this->is_post_public( $post_id );
+            return $this->is_post_readable( $post_id );
+        }
+
+        /**
+         * Check that a post is public, or readable by the logged-in user.
+         *
+         * @param int $post_id - post ID.
+         *
+         * @return boolean
+         */
+        public function is_post_readable( $post_id ) {
+            if ( $this->is_post_public( $post_id ) ) {
+                return true;
+            }
+
+            $post = get_post( $post_id );
+
+            return $post && is_user_logged_in() && is_post_type_viewable( $post->post_type ) && current_user_can( 'read_post', $post->ID );
         }
 
         /**
@@ -316,7 +348,9 @@ if ( ! class_exists( 'Sociality_Likes' ) ) :
                 return is_post_publicly_viewable( $post );
             }
 
-            return 'publish' === $post->post_status && is_post_type_viewable( $post->post_type );
+            $status = get_post_status_object( $post->post_status );
+
+            return $status && $status->public && is_post_type_viewable( $post->post_type );
         }
 
         /**
