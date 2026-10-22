@@ -476,10 +476,9 @@ if ( ! class_exists( 'Sociality_Likes' ) ) :
             // save new user like value.
             $post_meta_users[ $this->get_like_user_key() ] = $value;
 
-            // drop the visitor's like stored under the raw IP before hashing.
-            if ( ! is_user_logged_in() ) {
-                unset( $post_meta_users[ $this->get_remote_ip() ] );
-            }
+            // A copy read before a migration batch still holds raw IPs, the visitor's own included,
+            // so no write stores one again.
+            $post_meta_users = $this->hash_ip_like_keys( $post_meta_users );
 
             $this->update_post_meta( $post_id, $post_type, '_user_liked', $post_meta_users );
         }
@@ -540,7 +539,25 @@ if ( ! class_exists( 'Sociality_Likes' ) ) :
          * @return string
          */
         public function get_ip_like_key( $ip ) {
-            return 'ip_' . substr( hash_hmac( 'sha256', $ip, wp_salt( 'auth' ) ), 0, 32 );
+            return 'ip_' . substr( hash_hmac( 'sha256', $ip, $this->get_ip_hash_secret() ), 0, 32 );
+        }
+
+        /**
+         * Site secret for IP like keys. Kept apart from the auth salts, so rotating them
+         * does not change the keys of stored likes.
+         *
+         * @return string
+         */
+        public function get_ip_hash_secret() {
+            $secret = get_option( 'sociality_ip_hash_secret' );
+
+            if ( ! $secret ) {
+                // A parallel request may create it first, then its value is the one to use.
+                add_option( 'sociality_ip_hash_secret', wp_generate_password( 64, true, true ) );
+                $secret = get_option( 'sociality_ip_hash_secret' );
+            }
+
+            return $secret;
         }
 
         /**
