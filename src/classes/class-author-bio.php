@@ -118,15 +118,14 @@ if ( ! class_exists( 'Sociality_Author_Bio' ) ) :
          */
         public function admin_author_settings_enqueue_assets() {
             // css.
-            wp_enqueue_style( 'bootstrap-custom', sociality()->plugin_url . 'assets/vendor/bootstrap/css/bootstrap-custom.css', array(), '3.3.7' );
-            wp_enqueue_style( 'fontawesome-iconpicker', sociality()->plugin_url . 'assets/vendor/iconpicker/css/fontawesome-iconpicker.min.css', array(), '3.2.0' );
             wp_enqueue_style( 'sociality-admin-profile', sociality()->plugin_url . 'assets/sociality-admin-profile.min.css', array(), '@@plugin_version' );
             wp_style_add_data( 'sociality-admin-profile', 'rtl', 'replace' );
             wp_style_add_data( 'sociality-admin-profile', 'suffix', '.min' );
+            // After the plugin styles, so the picker's own rules win as they did over Bootstrap.
+            wp_enqueue_style( 'fontawesome-iconpicker', sociality()->plugin_url . 'assets/vendor/iconpicker/css/fontawesome-iconpicker.min.css', array(), '3.2.0' );
 
             // js.
-            wp_enqueue_script( 'bootstrap', sociality()->plugin_url . 'assets/vendor/bootstrap/js/bootstrap.min.js', array( 'jquery' ), '3.3.7', true );
-            wp_enqueue_script( 'fontawesome-iconpicker', sociality()->plugin_url . 'assets/vendor/iconpicker/js/fontawesome-iconpicker.min.js', array( 'bootstrap' ), '3.2.0', true );
+            wp_enqueue_script( 'fontawesome-iconpicker', sociality()->plugin_url . 'assets/vendor/iconpicker/js/fontawesome-iconpicker.min.js', array( 'jquery' ), '3.2.0', true );
             wp_enqueue_script( 'sociality-admin-profile', sociality()->plugin_url . 'assets/sociality-admin-profile.min.js', array( 'jquery' ), '@@plugin_version', true );
 
             wp_localize_script(
