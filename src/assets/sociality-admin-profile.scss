@@ -1,8 +1,287 @@
 /**
  * User Profile.
+ *
+ * The icon picker script reads and writes these class names (input-group,
+ * form-control, popover, fade, in, bg-primary), so they stay, scoped to the picker cell.
  */
-.sociality-icon-picker .input-group-btn {
-  font-size: inherit;
+@mixin sociality-button($color, $background, $border, $focus-bg, $focus-border, $hover-border, $active-bg, $active-border) {
+  color: $color;
+  background-color: $background;
+  border-color: $border;
+
+  &:focus {
+    color: $color;
+    background-color: $focus-bg;
+    border-color: $focus-border;
+  }
+
+  &:hover,
+  &:active {
+    color: $color;
+    background-color: $focus-bg;
+    border-color: $hover-border;
+  }
+
+  &:active:hover,
+  &:active:focus {
+    color: $color;
+    background-color: $active-bg;
+    border-color: $active-border;
+  }
+}
+
+.sociality-icon-picker {
+  *,
+  ::before,
+  ::after {
+    box-sizing: border-box;
+  }
+
+  a {
+    color: #337ab7;
+    text-decoration: none;
+    background-color: transparent;
+
+    &:hover,
+    &:focus {
+      color: #23527c;
+      text-decoration: underline;
+    }
+
+    &:focus {
+      outline: 5px auto -webkit-focus-ring-color;
+      outline-offset: -2px;
+    }
+
+    &:hover,
+    &:active {
+      outline: 0;
+    }
+  }
+
+  [role="button"] {
+    cursor: pointer;
+  }
+
+  svg:not(:root) {
+    overflow: hidden;
+  }
+
+  input {
+    margin: 0;
+    font: inherit;
+    color: inherit;
+  }
+
+  input[type="search"] {
+    box-sizing: border-box;
+    appearance: none;
+
+    &::-webkit-search-cancel-button,
+    &::-webkit-search-decoration {
+      appearance: none;
+    }
+  }
+
+  .bg-primary {
+    color: #fff;
+    background-color: #337ab7;
+  }
+
+  a.bg-primary:hover,
+  a.bg-primary:focus {
+    background-color: #286090;
+  }
+
+  .fade {
+    opacity: 0;
+    transition: opacity 0.15s linear;
+
+    &.in {
+      opacity: 1;
+    }
+  }
+
+  // Text field.
+  .form-control {
+    display: block;
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.4286;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 7.5%);
+    transition:
+      border-color ease-in-out 0.15s,
+      box-shadow ease-in-out 0.15s;
+
+    &:focus {
+      border-color: #66afe9;
+      outline: 0;
+      box-shadow:
+        inset 0 1px 1px rgba(0, 0, 0, 7.5%),
+        0 0 8px rgba(102, 175, 233, 60%);
+    }
+
+    &::placeholder {
+      color: #999;
+      opacity: 1;
+    }
+  }
+
+  // Buttons.
+  .btn {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.4286;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    touch-action: manipulation;
+    cursor: pointer;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+
+    &:focus,
+    &:active:focus {
+      outline: 5px auto -webkit-focus-ring-color;
+      outline-offset: -2px;
+    }
+
+    &:hover,
+    &:focus {
+      color: #333;
+      text-decoration: none;
+    }
+
+    &:active {
+      background-image: none;
+      outline: 0;
+      box-shadow: inset 0 3px 5px rgba(0, 0, 0, 12.5%);
+    }
+  }
+
+  .btn-default {
+    @include sociality-button(#333, #fff, #ccc, #e6e6e6, #8c8c8c, #adadad, #d4d4d4, #8c8c8c);
+  }
+
+  .btn-primary {
+    @include sociality-button(#fff, #337ab7, #2e6da4, #286090, #122b40, #204d74, #204d74, #122b40);
+  }
+
+  .btn-danger {
+    @include sociality-button(#fff, #d9534f, #d43f3a, #c9302c, #761c19, #ac2925, #ac2925, #761c19);
+  }
+
+  // Icon button, URL field and remove button in one row.
+  .input-group {
+    position: relative;
+    display: table;
+    border-collapse: separate;
+
+    .form-control {
+      position: relative;
+      z-index: 2;
+      display: table-cell;
+
+      /*! rtl:ignore */
+      float: left;
+      width: 100%;
+      margin-bottom: 0;
+
+      &:focus {
+        z-index: 3;
+      }
+
+      &:not(:first-child, :last-child) {
+        border-radius: 0;
+      }
+    }
+  }
+
+  .input-group-btn {
+    position: relative;
+    display: table-cell;
+    width: 1%;
+    font-size: inherit;
+    white-space: nowrap;
+    vertical-align: middle;
+  }
+
+  // Icon picker dropdown.
+  .popover {
+    position: absolute;
+    top: 0;
+
+    /*! rtl:ignore */
+    left: 0;
+    z-index: 1060;
+    display: none;
+    max-width: 276px;
+    padding: 1px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.4286;
+    text-align: start;
+    text-decoration: none;
+    text-shadow: none;
+    text-transform: none;
+    letter-spacing: normal;
+    word-break: normal;
+    overflow-wrap: normal;
+    white-space: normal;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0, 0, 0, 20%);
+    border-radius: 6px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 20%);
+    word-spacing: normal;
+    line-break: auto;
+
+    > .arrow,
+    > .arrow::after {
+      position: absolute;
+      display: block;
+      width: 0;
+      height: 0;
+      border-color: transparent;
+      border-style: solid;
+    }
+
+    > .arrow {
+      border-width: 11px;
+    }
+
+    > .arrow::after {
+      content: "";
+      border-width: 10px;
+    }
+  }
+
+  .popover-title {
+    padding: 8px 14px;
+    margin: 0;
+    font-size: 14px;
+    background-color: #f7f7f7;
+    border-bottom: 1px solid #ebebeb;
+    border-radius: 5px 5px 0 0;
+  }
+
+  .popover-content {
+    padding: 9px 14px;
+  }
 }
 
 .sociality-icon {
