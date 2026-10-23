@@ -31,6 +31,7 @@ The manual installation method involves downloading our Sociality plugin and upl
 
 = 1.4.0 =
 
+* added WordPress 7.2 compatibility
 * raised the minimum PHP requirement to 8.3
 * changed anonymous likes to be stored under a hashed key instead of the visitor's IP address; a one-time background task converts the IP addresses already stored, and this cannot be undone
 * changed the profile page social links to no longer load Bootstrap 3; the fields look the same
