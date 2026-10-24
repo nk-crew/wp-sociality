@@ -33,10 +33,10 @@ The manual installation method involves downloading our Sociality plugin and upl
 
 * added WordPress 7.2 compatibility
 * raised the minimum PHP requirement to 8.3
-* changed anonymous likes to be stored under a hashed key instead of the visitor's IP address; a one-time background task converts the IP addresses already stored, and this cannot be undone
-* changed the profile page social links to no longer load Bootstrap 3; the fields look the same
-* removed the Pocket, Skype, Delicious, Tencent Weibo, Google+ and StumbleUpon share buttons; saved settings that list them keep working
-* fixed like requests storing data on any post: likes now accept only enabled like types and existing posts, comments and activities the visitor can read
+* changed anonymous likes to stop storing visitors' IP addresses; addresses already stored are converted once after the update, and this cannot be undone
+* removed the Pocket, Skype, Delicious, Tencent Weibo, Google+ and StumbleUpon share buttons
+* removed the Bootstrap 3 styles loaded on the profile page; the social links fields look the same
+* security fix: likes could be added to any post, comment or activity, including ones the visitor cannot read
 * fixed comment and activity likes also changing the likes of the post
 * fixed anonymous likes failing on pages served from a page cache
 * fixed the WeChat share page showing links to other sites
