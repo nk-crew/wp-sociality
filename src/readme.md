@@ -3,8 +3,8 @@
 * Contributors: nko
 * Tags: social, share, post author block
 * Requires at least: 5.6
-* Tested up to: 7.1
-* Requires PHP: 7.4
+* Tested up to: 7.2
+* Requires PHP: 8.3
 * Stable tag: @@plugin_version
 * License: GPLv2 or later
 * License URI: <http://www.gnu.org/licenses/gpl-2.0.html>
@@ -28,6 +28,18 @@ In the search field type “Sociality” and click Search Plugins. Once you’ve
 The manual installation method involves downloading our Sociality plugin and uploading it to your webserver via your favourite FTP application. The WordPress codex contains [instructions on how to do this here](https://codex.wordpress.org/Managing_Plugins#Manual_Plugin_Installation).
 
 ## Changelog
+
+= 1.4.0 =
+
+* added WordPress 7.2 compatibility
+* raised the minimum PHP requirement to 8.3
+* changed anonymous likes to stop storing visitors' IP addresses; addresses already stored are converted once after the update, and this cannot be undone
+* removed the Pocket, Skype, Delicious, Tencent Weibo, Google+ and StumbleUpon share buttons
+* removed the Bootstrap 3 styles loaded on the profile page; the social links fields look the same
+* security fix: likes could be added to any post, comment or activity, including ones the visitor cannot read
+* fixed comment and activity likes also changing the likes of the post
+* fixed anonymous likes failing on pages served from a page cache
+* fixed the WeChat share page showing links to other sites
 
 = 1.3.7 =
 
