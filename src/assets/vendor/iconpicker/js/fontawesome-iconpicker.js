@@ -37,7 +37,7 @@
                     }
                 };
             }
-            if (j.isWindow(a)) {
+            if (a === a.window) {
                 return {
                     width: e.width(),
                     height: e.height(),
@@ -87,7 +87,7 @@
                 };
             },
             getWithinInfo: function(e) {
-                var a = j(e || window), t = j.isWindow(a[0]), s = !!a[0] && a[0].nodeType === 9, r = !t && !s;
+                var a = j(e || window), t = a[0] != null && a[0] === a[0].window, s = !!a[0] && a[0].nodeType === 9, r = !t && !s;
                 return {
                     element: a,
                     isWindow: t,
@@ -385,7 +385,7 @@
             return typeof e === "string" || e instanceof String;
         },
         isArray: function(e) {
-            return c.isArray(e);
+            return Array.isArray(e);
         },
         inArray: function(e, a) {
             return c.inArray(e, a) !== -1;
@@ -843,7 +843,7 @@
                 e = "";
             }
             var a = e === "";
-            e = c.trim(e);
+            e = String(e).trim();
             var t = false;
             for (var s = 0; s < this.options.icons.length; s++) {
                 if (this.options.icons[s].title === e) {
